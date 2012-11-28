@@ -1,7 +1,6 @@
 var express = require('express')
   , routes = require('./routes')
-  , fs = require('fs')
-  , csv = require('csv');
+  , fs = require('fs');
 
 var app = express.createServer();
 
