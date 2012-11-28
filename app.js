@@ -2,7 +2,7 @@ var express = require('express')
   , routes = require('./routes')
   , fs = require('fs');
 
-var app = express.createServer();
+var app = express();
 
 // Configuration
 
@@ -17,38 +17,8 @@ app.configure(function(){
   app.use(app.router);
 });
 
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler());
-});
-
-postcodes = {};
-
-var getPostcodes = function(){
-
-	fs.readFile('resources/postcodeCoords.json', function (err, data) {
-		postcodes = JSON.parse(data);
-	});
-}
-
-//getPostcodes();
-
-
-// Routes
-
-app.get('/', routes.home);
-app.get('/about', routes.about);
-app.get('/api/geolocationToPostcode/:long/:lat', routes.geolocationToPostcode);
-app.get('/browse', routes.browse);
-app.get('/browse/:location', routes.browse);
-app.get('/search', routes.search);
-app.get('/:postcode', routes.restResults);
-
 var port = process.env.PORT || 3000;
 
 app.listen(port, function(){
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+  console.log("Express server listening");
 });
