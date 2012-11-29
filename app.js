@@ -19,6 +19,8 @@ app.configure(function(){
 
 var port = process.env.PORT || 3000;
 
+routes.init(app);
+
 app.listen(port, function(){
   console.log("Express server listening");
 });
