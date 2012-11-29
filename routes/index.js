@@ -8,6 +8,48 @@ if (!String.prototype.trim) {
   };
 }
 
+var scrapeJobs = function(body){
+
+	var begin = body.indexOf('<body'),
+		end   = body.indexOf('</body') + 6;
+	body = body.substring(begin, end);
+									
+	var $body = $(body);
+	
+	var $jobs = $body.find(".job");
+		
+	var jobs = [];
+	
+	$jobs.each(function(){
+		jobs.push({
+			title: $(this).find("h3 a").text()
+		});
+	});
+	
+	console.log(jobs.length + " jobs found");
+	
+	var $pager = $body.find('.pager');
+	
+	var $prev = $pager.find('.selected').prev();
+	
+	var prevHref = $prev.length > 0 ? $prev.attr('href') : "";
+	
+	var $next = $pager.find('.next').closest('a');
+	
+	var nextHref = $next.length > 0 ? $next.attr('href') : "";
+	
+	console.log("prevHref: " + nextHref);
+	console.log("nextHref: " + nextHref);
+	
+	var jobsData = {'jobs': 	jobs,
+					'nextHref': nextHref,
+					'prevHref': prevHref,
+					'body':		body};
+	
+	return (jobsData);
+	
+};
+
 
 exports.init = function(app){
 
@@ -35,30 +77,58 @@ exports.init = function(app){
 			// get info
 			console.log("Scraping", Date.now() - start);
 			
-			var begin = body.indexOf('<body'),
-				end   = body.indexOf('</body') + 6;
-			body = body.substring(begin, end);
-															
-			console.log("Doc loading", Date.now() - start);
-			
-			var $body = $(body);
-			
-			var $jobs = $body.find(".job");
-			
-			var jobs = [];
-			
-			$jobs.each(function(){
-				jobs.push({
-					title: $(this).find("h3 a").text()
-				});
-			});
+			var jobsData = scrapeJobs(body);
 			
 			console.log("rendering", Date.now() - start);
 			
-			res.render('results', {'jobs': jobs, search: search});
+			res.render('results', {'jobs': jobsData.jobs,
+								   search: search,
+								   prevHref: encodeURIComponent(jobsData.prevHref),
+								   nextHref: encodeURIComponent(jobsData.nextHref)});
 			
 		})
 
+	});
+
+	app.get('/api/jobs', function(req,res){
+	
+		var start = Date.now();
+		
+		var pathname = req.query.url;
+		
+		console.log(pathname);
+		
+		var reqUrl = url.parse("http://www.reed.co.uk");
+		
+		reqUrl.pathname = pathname;
+		
+		var uri = url.format(reqUrl);
+		
+		console.log(uri);
+		
+		request({ uri: uri, timeout:5000 }, function (error, response, body) {
+
+			if (error || response.statusCode !== 200) {
+				console.log('Error:' + error);
+				res.send(500);
+				return;
+			}
+
+			// get info
+			console.log("Scraping", Date.now() - start);
+			
+			var jobsData = scrapeJobs(body);
+			
+			console.log("rendering", Date.now() - start);
+			
+			res.write(JSON.stringify({'jobs': 	  jobsData.jobs,
+									  'prevHref': encodeURIComponent(jobsData.prevHref),
+									  'nextHref': encodeURIComponent(jobsData.nextHref)
+									  }));
+									  //,'body': 	  jobsData.body}));
+			res.end();
+						
+		})
 	});
 
 };
