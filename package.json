@@ -8,5 +8,9 @@
     "request": "2.x",
     "jquery":  "1.x",
     "jade":	   "0.x"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm":  "1.1.x"
   }
 }
