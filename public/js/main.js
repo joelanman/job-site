@@ -9,7 +9,7 @@ $(function(){
 	
 		var $this = $(this);
 	
-		var url = $this.attr('href');
+		var url = "/api/jobs?url=" + $this.attr('href');
 		
 		console.log('url: ' + url);
 				
