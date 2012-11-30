@@ -1,13 +1,31 @@
-form(action="", method="GET")
-	input(type="text", name="keywords", value="#{search.keywords}")
-	input(type="text", name="location", value="#{search.location}")
-	button Go
+doctype html5
 
-h1 Search results
+html
 
-ul
-	- each job in jobs
-		li.job= job.title
+	head
+		link(rel='stylesheet', href='/css/main.css')
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")
+		script(src="/js/main.js")
+	
+	body
+	
+		form(action="", method="GET")
+			input(type="text", name="keywords", value="#{search.keywords}")
+			input(type="text", name="location", value="#{search.location}")
+			button Go
+
+		h1 Search results
+
+		ul#jobs
+			- each job in jobs
+				li.job
+					h2.jobTitle= job.title
 		
-a(href="/api/jobs?url=#{prevHref}") previous 
-a(href="/api/jobs?url=#{nextHref}") next
+		a#jobsPrev(href="/api/jobs?url=#{prevHref}") previous 
+		a#jobsNext(href="/api/jobs?url=#{nextHref}") next
+		
+		#templates
+		
+			#jobTemplate
+				li.job
+					h2.jobTitle

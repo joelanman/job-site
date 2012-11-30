@@ -121,6 +121,8 @@ exports.init = function(app){
 			
 			console.log("rendering", Date.now() - start);
 			
+    		res.writeHead(200, { 'Content-Type': 'application/json' });   
+			
 			res.write(JSON.stringify({'jobs': 	  jobsData.jobs,
 									  'prevHref': encodeURIComponent(jobsData.prevHref),
 									  'nextHref': encodeURIComponent(jobsData.nextHref)
