@@ -9,20 +9,23 @@ html
 	
 	body
 	
-		form(action="", method="GET")
-			input(type="text", name="keywords", value="#{search.keywords}")
-			input(type="text", name="location", value="#{search.location}")
-			button Go
+		#searchWrap
+			form(action="", method="GET")
+				input.keywords(type="text", name="keywords", value="#{search.keywords}")
+				input.location(type="text", name="location", value="#{search.location}")
+				button.button Go
 
-		h1 Search results
+		#resultsWrap
+			#resultsInner
 
-		ul#jobs
-			- each job in jobs
-				li.job
-					h2.jobTitle= job.title
+				a#jobsPrev(href="#{prevHref}") previous 
 		
-		a#jobsPrev(href="#{prevHref}") previous 
-		a#jobsNext(href="#{nextHref}") next
+				ul#jobs
+					- each job in jobs
+						li.job
+							h2.jobTitle= job.title
+		
+				a#jobsNext.button(href="#{nextHref}") more jobs
 		
 		#templates
 		

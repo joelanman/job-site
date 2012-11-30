@@ -1,16 +1,114 @@
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+body{
+	font-family: Helvetica, Arial;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
 h1, h2, h3, h4, h5{
 	font-family: Helvetica, Arial;
 	font-weight: normal;
+	margin: 0;
 }
 
 h2{
-	font-size: 14px;
+	font-size: 18px;
 }
 
 ul, li{
 	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+input{
+	border: 1px solid #ccc;
+	padding: 5px;
+	font-size: 14px;
+}
+
+.button{
+	display: inline-block;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	background: #F4F4F4;
+	text-decoration: none;
+	color: #333;
+}
+
+.button:hover{
+	border: 1px solid #666;
+	background: #EEE;
 }
 
 #templates{
 	display: none;
+}
+
+#jobsPrev{
+	display: none;
+}
+
+#searchWrap{
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 20px;
+	width: 100%;
+	height: 80px;
+	background: #FFF;
+	box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+}
+
+#searchWrap .keywords{
+	width: 400px;
+}
+
+#searchWrap .location{
+	width: 400px;
+}
+
+#resultsWrap{
+	overflow: hidden;
+	height: 100%;
+}
+
+#resultsInner{
+	background: #F4F4F4;
+	padding: 100px 0 0 0;
+	overflow-y: scroll;
+	height: 100%;
+	margin-right: -32px;
+}
+
+.job{
+	padding: 15px 15px;
+	display: block;
+	float: left;
+	width: 200px;
+	height: 200px;
+	border: 1px solid #DDD;
+	margin: 8px;
+	vertical-align: top;
+	word-break: break-word;
+	background: white;
+}
+
+.job.test{
+	background: red;
+}
+
+#jobsNext{
+	padding: 15px 15px;
+	display: block;
+	float: left;
+	width: 200px;
+	height: 200px;
+	border: 1px solid #DDD;
+	margin: 8px;
+	vertical-align: top;
+	word-break: break-word;
+	text-align: center;
 }
