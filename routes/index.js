@@ -191,7 +191,7 @@ exports.init = function(app){
 
 			var job = {};
 
-			console.log(body);
+			//console.log(body);
 
 			console.log($body.find('#jobdescription').length);
 

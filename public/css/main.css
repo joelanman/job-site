@@ -147,6 +147,13 @@ input{
 	padding: 50px;
 	height: 100%;
 	background: #fff;
+	overflow: hidden;
+}
+
+#jobViewScroll{
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
 }
 
 #jobViewInner h1{
