@@ -23,7 +23,7 @@ html
 				ul#jobs
 					- each job in jobs
 						li.job
-							a(href='#{job.url}')
+							a.link(href='#{job.url}')
 								h2.jobTitle= job.title
 								ul.details
 									li= job.salary
@@ -32,6 +32,11 @@ html
 									li= job.date
 			
 				a#jobsNext.job.button(href="#{nextHref}") more jobs
+
+		#jobViewWrap
+			#jobViewInner
+				h1.jobTitle
+				#jobDescription
 		
 		#templates
 		

@@ -9,7 +9,7 @@ $(function(){
 	
 		var $this = $(this);
 	
-		var url = "/api/jobs?url=" + $this.attr('href');
+		var url = "/api/jobs/search?url=" + $this.attr('href');
 		
 		console.log('url: ' + url);
 				
@@ -29,7 +29,6 @@ $(function(){
 				
 				var $job = $jobTemplate.clone();
 				
-
 				$job.find('.link').attr('href', job.url);
 				$job.find('.jobTitle').text(job.title);
 				$job.find('.salary').text(job.salary);
@@ -46,6 +45,36 @@ $(function(){
 			$jobs.append(jobElements);
 			
 		});
+	});
+
+	$("body").on("click", ".job .link", function(e){
+
+		e.preventDefault();
+
+		$('#jobViewInner .jobTitle').text($(this).find('.jobTitle').text());
+		$('#jobDescription').text('Loading ...');
+		$('#jobViewWrap').show();
+
+		var url = "/api/jobs/view?url=" + $(this).attr('href');
+		
+		console.log('url: ' + url);
+				
+		$.get(url, function(data){
+
+			console.log(data);
+			$('#jobDescription').html(data.job.description);
+
+		});
+
+	});
+
+	$("body").on("click", "#jobViewWrap", function(e){
+
+		e.preventDefault();
+
+		if($(e.target).closest('#jobViewInner').length == 0)
+			$('#jobViewWrap').hide();
+
 	});
 
 });

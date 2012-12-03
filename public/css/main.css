@@ -87,12 +87,23 @@ input{
 	margin-right: -32px;
 }
 
+#jobViewWrap{
+	display: none;
+	background: rgba(255,255,255,0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+}
+
 .job{
 	padding: 15px 15px;
 	display: block;
 	float: left;
 	width: 290px;
-	height: 150px;
+	height: 155px;
 	border: 1px solid #DDD;
 	margin: 8px;
 	vertical-align: top;
@@ -126,4 +137,18 @@ input{
 	vertical-align: top;
 	word-break: break-word;
 	text-align: center;
+}
+
+#jobViewInner{
+	position: absolute;
+	left: 50%;
+	margin-left: -400px;
+	width: 800px;
+	padding: 50px;
+	height: 100%;
+	background: #fff;
+}
+
+#jobViewInner h1{
+	margin: 0 0 20px 0;
 }

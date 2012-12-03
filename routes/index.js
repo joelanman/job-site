@@ -113,7 +113,7 @@ exports.init = function(app){
 
 	});
 
-	app.get('/api/jobs', function(req,res){
+	app.get('/api/jobs/search', function(req,res){
 	
 		var start = Date.now();
 		
@@ -149,6 +149,59 @@ exports.init = function(app){
 			res.write(JSON.stringify({'jobs': 	  jobsData.jobs,
 									  'prevHref': encodeURIComponent(jobsData.prevHref),
 									  'nextHref': encodeURIComponent(jobsData.nextHref)
+									  }));
+									  //,'body': 	  jobsData.body}));
+			res.end();
+						
+		})
+	});
+
+	app.get('/api/jobs/view', function(req,res){
+	
+		var start = Date.now();
+		
+		var pathname = req.query.url;
+		
+		console.log(pathname);
+		
+		var reqUrl = url.parse("http://www.reed.co.uk");
+		
+		reqUrl.pathname = pathname;
+		
+		var uri = url.format(reqUrl);
+		
+		console.log(uri);
+		
+		request({ uri: uri, timeout:5000 }, function (error, response, body) {
+
+			if (error || response.statusCode !== 200) {
+				console.log('Error:' + error);
+				res.send(500);
+				return;
+			}
+
+			// get info
+			console.log("Scraping", Date.now() - start);
+			
+			//var begin = body.indexOf('<body'),
+			//	end   = body.indexOf('</body') + 6;
+			//body = body.substring(begin, end);
+											
+			var $body = $(body);
+
+			var job = {};
+
+			console.log(body);
+
+			console.log($body.find('#jobdescription').length);
+
+			job.description = $body.find('#jobdescription').html();
+			
+			console.log("rendering", Date.now() - start);
+			
+    		res.writeHead(200, { 'Content-Type': 'application/json' });   
+			
+			res.write(JSON.stringify({'job': job
 									  }));
 									  //,'body': 	  jobsData.body}));
 			res.end();
