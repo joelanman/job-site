@@ -7,6 +7,10 @@ body{
 	padding: 0;
 }
 
+a{
+	text-decoration: none;
+}
+
 h1, h2, h3, h4, h5{
 	font-family: Helvetica, Arial;
 	font-weight: normal;
@@ -87,8 +91,8 @@ input{
 	padding: 15px 15px;
 	display: block;
 	float: left;
-	width: 200px;
-	height: 200px;
+	width: 290px;
+	height: 150px;
 	border: 1px solid #DDD;
 	margin: 8px;
 	vertical-align: top;
@@ -96,16 +100,27 @@ input{
 	background: white;
 }
 
-.job.test{
-	background: red;
+.job h2{
+	height: 45px;
+	margin: 0 0 5px 0;
+}
+
+.job a{
+	color: #222;
+}
+
+.job li{
+	font-size: 14px;
+	margin: 3px 0;
+	color: #666;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 #jobsNext{
-	padding: 15px 15px;
 	display: block;
 	float: left;
-	width: 200px;
-	height: 200px;
 	border: 1px solid #DDD;
 	margin: 8px;
 	vertical-align: top;

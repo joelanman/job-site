@@ -29,7 +29,13 @@ $(function(){
 				
 				var $job = $jobTemplate.clone();
 				
+
+				$job.find('.link').attr('href', job.url);
 				$job.find('.jobTitle').text(job.title);
+				$job.find('.salary').text(job.salary);
+				$job.find('.location').text(job.location);
+				$job.find('.applications').text(job.applications);
+				$job.find('.date').text(job.date);
 				
 				console.log('job: ' + job.title);
 				

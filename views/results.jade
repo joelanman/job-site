@@ -23,12 +23,24 @@ html
 				ul#jobs
 					- each job in jobs
 						li.job
-							h2.jobTitle= job.title
-		
-				a#jobsNext.button(href="#{nextHref}") more jobs
+							a(href='#{job.url}')
+								h2.jobTitle= job.title
+								ul.details
+									li= job.salary
+									li= job.location
+									li= job.applications
+									li= job.date
+			
+				a#jobsNext.job.button(href="#{nextHref}") more jobs
 		
 		#templates
 		
 			#jobTemplate
 				li.job
-					h2.jobTitle
+					a.link
+						h2.jobTitle
+						ul.details
+							li.salary
+							li.location
+							li.applications
+							li.date

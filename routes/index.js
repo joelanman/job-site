@@ -21,8 +21,31 @@ var scrapeJobs = function(body){
 	var jobs = [];
 	
 	$jobs.each(function(){
+
+		var $this = $(this),
+			$title = $this.find("h3 a");
+
+		var titleFulltext = $title.text(),
+			maxLength = 52;
+
+		if(titleFulltext.length < maxLength){
+			var title = titleFulltext;
+		} else {
+			for (var i = maxLength; i>0; i--){
+				if (titleFulltext[i] == ' '){
+					var title = titleFulltext.substring(0, i) + ' ...';
+					break;
+				}
+			}
+		}
+
 		jobs.push({
-			title: $(this).find("h3 a").text()
+			title: title,
+			url: $title.attr('href'),
+			salary: $this.find('.salary').text().replace(' per annum',''),
+			location: $this.find('.location').text().replace('London, South East England','London'),
+			applications: $this.find('.appCount').text(),
+			date: $this.find('.date').text().replace('Date: ', '') 
 		});
 	});
 	
