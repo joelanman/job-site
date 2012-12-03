@@ -44,7 +44,7 @@ var scrapeJobs = function(body){
 			url: $title.attr('href'),
 			salary: $this.find('.salary').text().replace(' per annum',''),
 			location: $this.find('.location').text().replace('London, South East England','London'),
-			applications: $this.find('.appCount').text(),
+			applications: $this.find('.appCount').text().replace(/ applications?/,''),
 			date: $this.find('.date').text().replace('Date: ', '') 
 		});
 	});

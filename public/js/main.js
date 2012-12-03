@@ -68,7 +68,7 @@ $(function(){
 
 	});
 
-	$("body").on("click touch", "#jobViewWrap", function(e){
+	$("#jobViewWrap").on("click touch", function(e){
 
 		e.preventDefault();
 

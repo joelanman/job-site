@@ -3,6 +3,7 @@ doctype html5
 html
 
 	head
+		link(rel='stylesheet', href='/css/font-awesome.css')
 		link(rel='stylesheet', href='/css/main.css')
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")
 		script(src="/js/main.js")
@@ -11,8 +12,8 @@ html
 	
 		#searchWrap
 			form(action="", method="GET")
-				input.keywords(type="text", name="keywords", value="#{search.keywords}")
-				input.location(type="text", name="location", value="#{search.location}")
+				input.keywords(placeholder="job title, skills or company", type="text", name="keywords", value="#{search.keywords}")
+				input.location(placeholder="town or postcode", type="text", name="location", value="#{search.location}")
 				button.button Go
 
 		#resultsWrap
@@ -28,8 +29,13 @@ html
 								ul.details
 									li= job.salary
 									li= job.location
-									li= job.applications
-									li= job.date
+								.icons
+									.applications
+										i.icon-user
+										span= job.applications
+									.date
+										i.icon-calendar
+										span= job.date
 			
 				a#jobsNext.job.button(href="#{nextHref}") more jobs
 
