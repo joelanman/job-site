@@ -3,9 +3,13 @@ doctype html5
 html
 
 	head
+	
 		link(rel='stylesheet', href='/css/font-awesome.css')
 		link(rel='stylesheet', href='/css/main.css')
+		link(rel='stylesheet', href='/css/jquery-ui/jquery-ui-1.9.2.custom.css')
+		
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")
+		script(src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js")
 		script(src="/js/main.js")
 	
 	body
@@ -15,6 +19,9 @@ html
 				input.keywords(placeholder="job title, skills or company", type="text", name="keywords", value="#{search.keywords}")
 				input.location(placeholder="town or postcode", type="text", name="location", value="#{search.location}")
 				button.button Go
+				
+		#filtersWrap
+			#salarySlider
 
 		#resultsWrap
 			#resultsInner
@@ -25,17 +32,17 @@ html
 					- each job in jobs
 						li.job
 							a.link(href='#{job.url}')
-								h2.jobTitle= job.title
+								h2.jobTitle(data-title="#{job.title}")= job.shortTitle
 								ul.details
 									li= job.salary
 									li= job.location
 								.icons
-									.applications
+									.applicationsWrap
 										i.icon-user
-										span= job.applications
-									.date
+										span.applications= job.applications
+									.dateWrap
 										i.icon-calendar
-										span= job.date
+										span.date= job.date
 			
 				a#jobsNext.job.button(href="#{nextHref}") more jobs
 
@@ -44,6 +51,8 @@ html
 				#jobViewScroll
 					h1.jobTitle
 					#jobDescription
+				#jobViewApplication
+					a.button.applyBtn(href="#") Apply now
 		
 		#templates
 		
@@ -54,5 +63,10 @@ html
 						ul.details
 							li.salary
 							li.location
-							li.applications
-							li.date
+						.icons
+							.applicationsWrap
+								i.icon-user
+								span.applications
+							.dateWrap
+								i.icon-calendar
+								span.date

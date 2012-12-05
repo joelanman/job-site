@@ -1,5 +1,16 @@
 $(function(){
 
+	$("#salarySlider" ).slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 75, 300 ],
+        slide: function( event, ui ) {
+            //$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        }
+    });
+    //$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
 	var $jobTemplate = $($('#jobTemplate').html()),
 		$jobs = $('#jobs');
 
@@ -30,7 +41,8 @@ $(function(){
 				var $job = $jobTemplate.clone();
 				
 				$job.find('.link').attr('href', job.url);
-				$job.find('.jobTitle').text(job.title);
+				$job.find('.jobTitle').text(job.shortTitle);
+				$job.find('.jobTitle').attr('data-title', job.title);
 				$job.find('.salary').text(job.salary);
 				$job.find('.location').text(job.location);
 				$job.find('.applications').text(job.applications);
@@ -51,7 +63,7 @@ $(function(){
 
 		e.preventDefault();
 
-		$('#jobViewInner .jobTitle').text($(this).find('.jobTitle').text());
+		$('#jobViewInner .jobTitle').text($(this).find('.jobTitle').attr('data-title'));
 		$('#jobDescription').text('Loading ...');
 		$('#jobViewWrap').show();
 

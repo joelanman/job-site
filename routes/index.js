@@ -8,6 +8,10 @@ if (!String.prototype.trim) {
   };
 }
 
+String.prototype.toTitleCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 var scrapeJobs = function(body){
 
 	var begin = body.indexOf('<body'),
@@ -25,21 +29,28 @@ var scrapeJobs = function(body){
 		var $this = $(this),
 			$title = $this.find("h3 a");
 
-		var titleFulltext = $title.text(),
-			maxLength = 52;
+		var title = $title.text(),
+			maxLength = 50;
+		
+		// GET RID OF ALL CAPS
+		if (title == title.toUpperCase()) {
+			title = title.toTitleCase();
+		}
 
-		if(titleFulltext.length < maxLength){
-			var title = titleFulltext;
+		// truncate to max length
+		if (title.length < maxLength){
+			var shortTitle = title;
 		} else {
 			for (var i = maxLength; i>0; i--){
-				if (titleFulltext[i] == ' '){
-					var title = titleFulltext.substring(0, i) + ' ...';
+				if (title[i] == ' '){
+					var shortTitle = title.substring(0, i) + ' ...';
 					break;
 				}
 			}
 		}
 
 		jobs.push({
+			shortTitle: shortTitle,
 			title: title,
 			url: $title.attr('href'),
 			salary: $this.find('.salary').text().replace(' per annum',''),
@@ -82,6 +93,9 @@ exports.init = function(app){
 		
 		var search = {'keywords': req.query.keywords || "",
 					  'location': req.query.location || ""};
+		
+		if (search.keywords != "")
+			search.sortby = 'KeywordRelevance';
 		
 		var reqUrl = url.parse("http://www.reed.co.uk/jobs");
 		
