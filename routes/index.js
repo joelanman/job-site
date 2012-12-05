@@ -29,7 +29,7 @@ var scrapeJobs = function(body){
 		var $this = $(this),
 			$title = $this.find("h3 a");
 
-		var title = $title.text(),
+		var title = $title.text().trim(),
 			maxLength = 50;
 		
 		// GET RID OF ALL CAPS
@@ -53,10 +53,10 @@ var scrapeJobs = function(body){
 			shortTitle: shortTitle,
 			title: title,
 			url: $title.attr('href'),
-			salary: $this.find('.salary').text().replace(' per annum',''),
-			location: $this.find('.location').text().replace('London, South East England','London'),
-			applications: $this.find('.appCount').text().replace(/ applications?/,''),
-			date: $this.find('.date').text().replace('Date: ', '') 
+			salary: $this.find('.salary').text().trim().replace(' per annum',''),
+			location: $this.find('.location').text().trim().replace('London, South East England','London'),
+			applications: $this.find('.appCount').text().trim().replace(/ applications?/,''),
+			date: $this.find('.date').text().trim().replace('Date: ', '') 
 		});
 	});
 	
