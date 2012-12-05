@@ -60,6 +60,18 @@ var scrapeJobs = function(body){
 		});
 	});
 	
+	// filters
+	
+	$filters = $body.find('#mainFacets');
+	
+	$salaryCountElements = $filters.find('.salary .count');
+	
+	var salaryCounts = [];
+	
+	$salaryCountElements.each(function(){
+		salaryCounts.push($(this).text().replace(/[(),]/g,''));
+	});
+	
 	console.log(jobs.length + " jobs found");
 	
 	var $pager = $body.find('.pager');
@@ -78,6 +90,7 @@ var scrapeJobs = function(body){
 	var jobsData = {'jobs': 	jobs,
 					'nextHref': nextHref,
 					'prevHref': prevHref,
+					'filterData' : {'salaryCounts': salaryCounts},
 					'body':		body};
 	
 	return (jobsData);
@@ -133,14 +146,24 @@ exports.init = function(app){
 		
 		var pathname = req.query.url;
 		
-		console.log(pathname);
-		
 		var reqUrl = url.parse("http://www.reed.co.uk");
 		
-		reqUrl.pathname = pathname;
+		if (!pathname){
+		
+			reqUrl.pathname = "jobs";
+			reqUrl.query = req.query;
+			
+			if (reqUrl.query.keywords != "")
+				reqUrl.query.sortby = 'KeywordRelevance';
+			
+		} else {
+				
+			reqUrl.pathname = pathname;
+		
+		}
 		
 		var uri = url.format(reqUrl);
-		
+			
 		console.log(uri);
 		
 		request({ uri: uri, timeout:5000 }, function (error, response, body) {
@@ -160,9 +183,10 @@ exports.init = function(app){
 			
     		res.writeHead(200, { 'Content-Type': 'application/json' });   
 			
-			res.write(JSON.stringify({'jobs': 	  jobsData.jobs,
-									  'prevHref': encodeURIComponent(jobsData.prevHref),
-									  'nextHref': encodeURIComponent(jobsData.nextHref)
+			res.write(JSON.stringify({'jobs': 	    jobsData.jobs,
+									  'prevHref':   encodeURIComponent(jobsData.prevHref),
+									  'nextHref':   encodeURIComponent(jobsData.nextHref),
+									  'filterData': jobsData.filterData,
 									  }));
 									  //,'body': 	  jobsData.body}));
 			res.end();

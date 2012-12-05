@@ -82,8 +82,12 @@ input{
 	padding: 20px;
 }
 
+#filtersWrap .salaryLabel{
+	margin: 20px 0;
+}
+
 #salarySlider{
-	width: 220px;
+	width: 240px;
 }
 
 #resultsWrap{
