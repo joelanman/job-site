@@ -3,6 +3,8 @@ $(function(){
 	var search = {
 		filters : {},
 		getJobs : function(){
+		
+			console.log('getting jobs...');
 			
 			var url = "/api/jobs/search";
 		
@@ -25,7 +27,7 @@ $(function(){
 		$jobs = $('#jobs');
 		
 	drawJobs = function(data){
-		console.log(data);
+		console.log('drawing jobs...');
 		
 		var jobs = data.jobs;
 		
@@ -46,9 +48,7 @@ $(function(){
 			$job.find('.location').text(job.location);
 			$job.find('.applications').text(job.applications);
 			$job.find('.date').text(job.date);
-			
-			console.log('job: ' + job.title);
-			
+						
 			jobElements.push($job);
 		
 		}
@@ -58,11 +58,13 @@ $(function(){
 	};
 	
 	$('#searchWrap .keywords').change(function(){
+		console.log("change");
 		search.filters.keywords = $(this).val();
 		search.getJobs();
 	});
 	
 	$('#searchWrap .location').change(function(){
+		console.log("change");
 		search.filters.location = $(this).val();
 		search.getJobs();
 	});
@@ -71,6 +73,7 @@ $(function(){
 	
 	$('#searchWrap input').keyup(function(){
 		
+		console.log("keyup");
 		var $this = $(this);
 		
 		if (keyDelay){
@@ -79,8 +82,11 @@ $(function(){
 		}
 	
 		keyDelay = setTimeout(function(){
-			$this.change();
-		}, 1000);
+			keyDelay = null;
+			if ($this.val() != search.filters[$this.attr('name')]){
+				$this.change();
+			}
+		}, 500);
 	});
 
 	$("#salarySlider").slider({
@@ -94,7 +100,7 @@ $(function(){
         }
     });
     
-    $("#salarySlider").on( "slidechange", function(event, ui) {
+    $("#salarySlider").on("slidechange", function(event, ui) {
     	console.log(ui.values);
     	search.filters.salaryfrom = ui.values[0];
     	search.filters.salaryto = ui.values[1];
