@@ -16,6 +16,7 @@ $(function(){
 				$jobs.empty();
 				drawJobs(data);
 				$('#jobs').fadeTo(0,1);
+				$('#resultsInner').scrollTop(0);
 			});
 		}
 	};
