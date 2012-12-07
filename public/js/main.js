@@ -147,11 +147,41 @@ $(function(){
 
 	$("#jobViewWrap").on("click touch", function(e){
 
-		e.preventDefault();
-
-		if($(e.target).closest('#jobViewInner').length == 0)
+		if ($(e.target).closest('#jobViewInner').length == 0){		
+			e.preventDefault();
 			$('#jobViewWrap').hide();
+		}
 
+	});
+	
+	$("body").on("click", "#controlPanelBtn", function(e){
+		e.preventDefault();
+		$("#controlPanelWrap").fadeIn();
+	});
+	
+	$("#controlPanelWrap").on("click touch", function(e){
+
+		if ($(e.target).closest('#controlPanel').length == 0){
+		
+			e.preventDefault();
+			$('#controlPanelWrap').fadeOut();
+			
+		}
+
+	});
+	
+	$("#controlPanel").on("click touch", ".option", function(e){
+						
+		var optionsClass = "";
+		
+		$('#controlPanel .option:checked').each(function(){
+			var $this = $(this);
+			var cssClass = $this.attr('name') + $this.val();
+			optionsClass += cssClass + " ";
+		});
+		
+		$('#options').attr('class', optionsClass);
+		
 	});
 
 });

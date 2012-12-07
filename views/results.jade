@@ -14,61 +14,90 @@ html
 	
 	body
 	
-		#searchWrap
-			form(action="", method="GET")
-				input.keywords(placeholder="job title, skills or company", type="text", name="keywords", value="#{search.keywords}")
-				input.location(placeholder="town or postcode", type="text", name="location", value="#{search.location}")
-				button.button Go
+		#options.searchLayoutTop.resultsLayoutCards
+	
+			#controlPanelBtn
+				a(href="#")
+					i.icon-cog
 				
-		#filtersWrap
-			.salaryWrap
-				.salaryLabel Any salary
-				#salarySlider
-
-		#resultsWrap
-			#resultsInner
-
-				a#jobsPrev(href="#{prevHref}") previous 
-		
-				ul#jobs
-					- each job in jobs
-						li.job
-							a.link(href='#{job.url}')
-								h2.jobTitle(data-title="#{job.title}")= job.shortTitle
-								ul.details
-									li= job.salary
-									li= job.location
-								.icons
-									.applicationsWrap
-										i.icon-user
-										span.applications= job.applications
-									.dateWrap
-										i.icon-calendar
-										span.date= job.date
+			#controlPanelWrap
+				#controlPanel
 			
-				a#jobsNext.job.button(href="#{nextHref}") more jobs
+					h2 Layout
+				
+					section
+						h3 Search layout
+						label
+							input.option(type="radio", name="searchLayout", value="Top", checked="checked")
+							span Top
+						label
+							input.option(type="radio", name="searchLayout", value="Left")
+							span Left
+				
+					section
+						h3 Job layout
+						label
+							input.option(type="radio", name="jobsLayout", value="Cards", checked="checked")
+							span Cards
+						label
+							input.option(type="radio", name="jobsLayout", value="Rows")
+							span Rows
+	
+			#searchWrap
+				form(action="", method="GET")
+					input.keywords(placeholder="job title, skills or company", type="text", name="keywords", value="#{search.keywords}")
+					input.location(placeholder="town or postcode", type="text", name="location", value="#{search.location}")
+					button.button Go
+				
+			#filtersWrap
+				.salaryWrap
+					.salaryLabel Any salary
+					#salarySlider
 
-		#jobViewWrap
-			#jobViewInner
-				#jobViewScroll
-					h1.jobTitle
-					#jobDescription
-				#jobViewApplication
-					a.button.applyBtn(href="#") Apply now
+			#resultsWrap
+				#resultsInner
+
+					a#jobsPrev(href="#{prevHref}") previous 
 		
-		#templates
+					ul#jobs
+						- each job in jobs
+							li.job
+								a.link(href='#{job.url}')
+									h2.jobTitle(data-title="#{job.title}")= job.shortTitle
+									ul.details
+										li= job.salary
+										li= job.location
+									.icons
+										.applicationsWrap
+											i.icon-user
+											span.applications= job.applications
+										.dateWrap
+											i.icon-calendar
+											span.date= job.date
+			
+					a#jobsNext.job.button(href="#{nextHref}") more jobs
+
+			#jobViewWrap
+				#jobViewInner
+					#jobViewScroll
+						h1.jobTitle
+						#jobDescription
+					#jobViewApplication
+						a.button.applyBtn(href="#") Apply now
 		
-			#jobTemplate
-				li.job
-					a.link
-						h2.jobTitle
-						ul.details
-							li.salary
-							li.location
-						.icons
-							.applicationsWrap
-								i.icon-user
-								span.applications
-							.dateWrap
-								i.icon-calendar
-								span.date
+			#templates
+		
+				#jobTemplate
+					li.job
+						a.link
+							h2.jobTitle
+							ul.details
+								li.salary
+								li.location
+							.icons
+								.applicationsWrap
+									i.icon-user
+									span.applications
+								.dateWrap
+									i.icon-calendar
+									span.date
