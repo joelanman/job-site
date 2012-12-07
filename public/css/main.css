@@ -117,7 +117,8 @@ input{
 #resultsWrap{
 	overflow: hidden;
 	height: 100%;
-	margin-left: 300px;
+	padding-left: 300px;
+	width: 100%;
 }
 
 #resultsInner{
@@ -126,6 +127,7 @@ input{
 	height: 100%;
 	margin-right: -32px;
 	padding: 15px;
+	width: 105%;
 }
 
 .searchLayoutTop #resultsInner{
@@ -146,9 +148,12 @@ input{
 	z-index: 1000;
 }
 
+#jobs{
+	width: 100%;
+}
+
 .job{
 	position: relative;
-	float: left;
 	margin: 8px;
 }
 
@@ -156,11 +161,27 @@ input{
 	position: relative;
 	padding: 15px 15px;
 	display: block;
-	width: 290px;
-	height: 155px;
 	border: 1px solid #DDD;
 	word-break: break-word;
 	background: white;
+}
+
+.jobsLayoutCards .job{
+	float: left;
+}
+
+.jobsLayoutRows .job{
+	width: 100%;
+}
+
+.jobsLayoutCards .job .link{
+	width: 290px;
+	height: 155px;
+}
+
+
+.jobsLayoutRows .job .link{
+	width: 100%;
 }
 
 .job .link:hover{
@@ -172,8 +193,26 @@ input{
 	margin: 0 0 5px 0;
 }
 
+.jobsLayoutRows h2{
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 5px;
+	width: 49%;
+	max-width: 420px;
+}
+
 .job a{
 	color: #222;
+}
+
+.jobsLayoutRows .job .details{
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 5px;
+	width: 29%;
+}
+
+.job .details{
 }
 
 .job li{
@@ -188,13 +227,23 @@ input{
 .job .icons{
 	font-size: 14px;
 	color: #666;
+}
+
+.jobsLayoutCards .job .icons{
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 }
 
-.job .icons .applicationsWrap,
-.job .icons .dateWrap{
+.jobsLayoutRows .job .icons{
+	display: inline-block;
+	width: 20%;
+	vertical-align: top;
+	padding: 0 5px;
+}
+
+.jobsLayoutCards .job .icons .applicationsWrap,
+.jobsLayoutCards .job .icons .dateWrap{
 	float: left;
 	width: 50%;
 	padding: 15px 0;
