@@ -27,7 +27,8 @@ var scrapeJobs = function(body){
 	$jobs.each(function(){
 
 		var $this = $(this),
-			$title = $this.find("h3 a");
+			$title = $this.find("h3 a"),
+			excerpt = $this.find('.description').html();
 
 		var title = $title.text().trim(),
 			maxLength = 50;
@@ -56,7 +57,8 @@ var scrapeJobs = function(body){
 			salary: $this.find('.salary').text().trim().replace(' per annum',''),
 			location: $this.find('.location').text().trim().replace('London, South East England','London'),
 			applications: $this.find('.appCount').text().trim().replace(/ applications?/,''),
-			date: $this.find('.date').text().trim().replace('Date: ', '') 
+			date: $this.find('.date').text().trim().replace('Date: ', ''),
+			excerpt: excerpt
 		});
 	});
 	

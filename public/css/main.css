@@ -131,7 +131,6 @@ label{
 	height: 100%;
 	margin-right: -32px;
 	padding: 15px;
-	width: 105%;
 }
 
 .searchLayoutTop #resultsInner{
@@ -153,7 +152,6 @@ label{
 }
 
 #jobs{
-	width: 100%;
 }
 
 .job{
@@ -168,6 +166,7 @@ label{
 	border: 1px solid #DDD;
 	word-break: break-word;
 	background: white;
+	-webkit-transition: all 1s;
 }
 
 .jobsLayoutCards .job{
@@ -175,7 +174,6 @@ label{
 }
 
 .jobsLayoutRows .job{
-	width: 100%;
 }
 
 .jobsLayoutCards .job .link{
@@ -183,9 +181,11 @@ label{
 	height: 155px;
 }
 
+.excerptsOn.jobsLayoutCards .job .link{
+	height: 342px;
+}
 
 .jobsLayoutRows .job .link{
-	width: 100%;
 }
 
 .job .link:hover{
@@ -200,7 +200,7 @@ label{
 .jobsLayoutRows h2{
 	display: inline-block;
 	vertical-align: top;
-	padding: 0 5px;
+	padding: 0 5px 0 0;
 	width: 49%;
 	max-width: 420px;
 }
@@ -256,6 +256,20 @@ label{
 .job .icons .applications,
 .job .icons .date{
 	padding: 0 4px;
+}
+
+.job .excerpt{
+	font-size: 14px;
+	color: #666;
+	max-width: 940px;
+}
+
+.excerptsOff .excerpt{
+	display: none;
+}
+
+.job .highlight{
+	color: #000;
 }
 
 #jobsNext{

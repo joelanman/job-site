@@ -49,6 +49,7 @@ $(function(){
 			$job.find('.location').text(job.location);
 			$job.find('.applications').text(job.applications);
 			$job.find('.date').text(job.date);
+			$job.find('.excerpt').html(job.excerpt);
 						
 			jobElements.push($job);
 		

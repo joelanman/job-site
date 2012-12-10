@@ -41,6 +41,15 @@ html
 						label
 							input.option(type="radio", name="jobsLayout", value="Rows")
 							span Rows
+							
+					section
+						h3 Excerpts
+						label
+							input.option(type="radio", name="excerpts", value="On", checked="checked")
+							span On
+						label
+							input.option(type="radio", name="excerpts", value="Off")
+							span Off
 					
 			#searchWrap
 				form(action="", method="GET")
@@ -73,6 +82,7 @@ html
 										.dateWrap
 											i.icon-calendar
 											span.date= job.date
+									.excerpt= job.excerpt
 			
 					a#jobsNext.job.button(href="#{nextHref}") more jobs
 
@@ -100,3 +110,4 @@ html
 								.dateWrap
 									i.icon-calendar
 									span.date
+							.excerpt
