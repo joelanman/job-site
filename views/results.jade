@@ -27,16 +27,16 @@ html
 					section
 						h3 Search layout
 						label
-							input.option(type="radio", name="searchLayout", value="Top", checked="checked")
-							span Top
-						label
 							input.option(type="radio", name="searchLayout", value="Left")
 							span Left
+						label
+							input.option(type="radio", name="searchLayout", value="Top")
+							span Top
 			
 					section
 						h3 Job layout
 						label
-							input.option(type="radio", name="jobsLayout", value="Cards", checked="checked")
+							input.option(type="radio", name="jobsLayout", value="Cards")
 							span Cards
 						label
 							input.option(type="radio", name="jobsLayout", value="Rows")
@@ -45,7 +45,7 @@ html
 					section
 						h3 Excerpts
 						label
-							input.option(type="radio", name="excerpts", value="On", checked="checked")
+							input.option(type="radio", name="excerpts", value="On")
 							span On
 						label
 							input.option(type="radio", name="excerpts", value="Off")
@@ -55,14 +55,38 @@ html
 				form(action="", method="GET")
 					input.keywords(placeholder="job title, skills or company", type="text", name="keywords", value="#{search.keywords}")
 					input.location(placeholder="town or postcode", type="text", name="location", value="#{search.location}")
-					button.button Go
+					//button.button Go
 				
 			#filtersWrap
-				.salaryWrap
+				section.salaryWrap
 					.salaryLabel Any salary
 					#salarySlider
+					
+				section.typesHoursWrap
+				
+					h2
+						a.toggle#toggleTypesHours(href="#") Job type
+						
+					.collapse#collapseTypesHours
+						ul.types
+							li
+								a(href="#") Permanent
+							li
+								a(href="#") Temp
+							li
+								a(href="#") Contract
+							
+						ul.hours
+							li
+								a(href="#") Full-time
+							li
+								a(href="#") Part-time
+					
+				section.suggestionsWrap
+					h4 Suggestions
+					ul.suggestions
 
-			#resultsWrap
+			#resultsWrap	
 				#resultsInner
 
 					a#jobsPrev(href="#{prevHref}") previous 
@@ -82,7 +106,7 @@ html
 										.dateWrap
 											i.icon-calendar
 											span.date= job.date
-									.excerpt= job.excerpt
+									.excerpt!= job.excerpt
 			
 					a#jobsNext.job.button(href="#{nextHref}") more jobs
 
@@ -95,6 +119,11 @@ html
 						a.button.applyBtn(href="#") Apply now
 		
 			#templates
+			
+				#suggestionTemplate
+				
+					li.suggestion
+						a.link(href='#')
 		
 				#jobTemplate
 					li.job

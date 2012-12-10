@@ -248,5 +248,63 @@ exports.init = function(app){
 						
 		})
 	});
+	
+	app.get('/api/jobs/suggestions', function(req,res){
+	
+		var start = Date.now();
+		
+		var keywords = req.query.keywords;
+		
+		console.log(keywords);
+		
+		var reqUrl = url.parse("http://www.indeed.co.uk");
+		
+		reqUrl.pathname = '/jobs';
+		reqUrl.query = {'q': keywords};
+		
+		var uri = url.format(reqUrl);
+		
+		console.log(uri);
+		
+		request({ uri: uri, timeout:5000 }, function (error, response, body) {
+
+			if (error || response.statusCode !== 200) {
+				console.log('Error:' + error);
+				res.send(500);
+				return;
+			}
+
+			// get info
+			console.log("Scraping", Date.now() - start);
+			
+			//var begin = body.indexOf('<body'),
+			//	end   = body.indexOf('</body') + 6;
+			//body = body.substring(begin, end);
+											
+			var $body = $(body);
+
+			console.log(body);
+
+			console.log($body.find('#TITLE_rbo').length);
+
+			var $jobtitleElements = $body.find('#TITLE_rbo a');
+			
+			var suggestions = [];
+			
+			$jobtitleElements.each(function(){
+				suggestions.push($(this).text());
+			});
+			
+			console.log("rendering", Date.now() - start);
+			
+    		res.writeHead(200, { 'Content-Type': 'application/json' });   
+			
+			res.write(JSON.stringify({'suggestions': suggestions.slice(0,6)
+									  }));
+									  //,'body': 	  body}));
+			res.end();
+						
+		})
+	});
 
 };

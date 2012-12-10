@@ -63,7 +63,7 @@ label{
 	position: fixed;
 	top: 0;
 	left: 0;
-	padding: 20px;
+	padding: 20px 20px 20px 303px;
 	width: 100%;
 	height: 80px;
 	background: #FFF;
@@ -76,7 +76,7 @@ label{
 	top: 0;
 	left: 0;
 	padding: 20px;
-	width: 300px;
+	width: 280px;
 	height: 80px;
 	background: #FFF;
 	z-index: 100;
@@ -88,7 +88,7 @@ label{
 }
 
 .searchLayoutTop #searchWrap input[type=text]{
-	width: 400px;
+	width: 46%;
 }
 
 .searchLayoutLeft #searchWrap input[type=text]{
@@ -99,29 +99,80 @@ label{
 #filtersWrap{
 	position: fixed;
 	left: 0;
+}
+
+#filtersWrap section{
 	padding: 20px;
+	border-top: 1px solid #ddd;
+}
+
+#filtersWrap .collapse{
+	display: none;
 }
 
 .searchLayoutTop #filtersWrap{
-	top: 100px;
+	top: 70px;
 }
 
 .searchLayoutLeft #filtersWrap{
-	top: 200px;
+	top: 135px;
 }
 
 #filtersWrap .salaryLabel{
-	margin: 20px 0;
+	margin: 10px 0 15px 0;
 }
 
 #salarySlider{
 	width: 240px;
 }
+#collapseTypesHours{
+	overflow: hidden;
+}
+
+#collapseTypesHours ul{
+	float: left;
+	width: 50%;
+	font-size: 14px;
+}
+
+#collapseTypesHours a{
+	display: block;
+	padding: 5px 0;
+}
+
+.suggestionsWrap h4{
+	color: #999;
+	font-size: 11px;
+	margin: 0-20px 0 -20px;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 30px 20px 20px 20px;
+}
+
+.suggestions{
+	font-size: 14px;
+}
+
+.suggestions li{
+}
+
+.suggestions li a{
+	display: block;
+	padding: 10px 20px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	margin: -1px -20px 0 -20px;
+	color: #666;
+}
+
+.suggestions li a:hover{
+	color: #000;
+}
 
 #resultsWrap{
 	overflow: hidden;
 	height: 100%;
-	padding-left: 300px;
+	padding-left: 280px;
 	width: 100%;
 }
 
@@ -177,8 +228,11 @@ label{
 }
 
 .jobsLayoutCards .job .link{
-	width: 290px;
+	width: 325px;
 	height: 155px;
+}
+
+.jobsLayoutRows .job .link{
 }
 
 .excerptsOn.jobsLayoutCards .job .link{
@@ -186,6 +240,7 @@ label{
 }
 
 .jobsLayoutRows .job .link{
+	width: auto;
 }
 
 .job .link:hover{

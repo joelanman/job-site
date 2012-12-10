@@ -17,6 +17,7 @@ $(function(){
 				drawJobs(data);
 				$('#jobs').fadeTo(0,1);
 				$('#resultsInner').scrollTop(0);
+				getSuggestions();
 			});
 		}
 	};
@@ -25,7 +26,10 @@ $(function(){
 	search.filters.location = $('#searchWrap .location').val();
 	
 	var $jobTemplate = $($('#jobTemplate').html()),
-		$jobs = $('#jobs');
+		$suggestionTemplate = $($('#suggestionTemplate').html()),
+		
+		$jobs = $('#jobs'),
+		$suggestions = $('.suggestions');
 		
 	drawJobs = function(data){
 		console.log('drawing jobs...');
@@ -88,8 +92,16 @@ $(function(){
 			if ($this.val() != search.filters[$this.attr('name')]){
 				$this.change();
 			}
-		}, 500);
-	});
+		}, 400);
+	});	
+	
+	$('#searchWrap input').keydown(function(e){
+
+		if (e.keyCode == 13){
+			e.preventDefault();
+			return false;
+		}
+	});	
 
 	$("#salarySlider").slider({
         range: true,
@@ -180,10 +192,16 @@ $(function(){
 		var optionsClass = "";
 		
 		for (var name in options){
+		
 			var value = options[name];
+			
 			optionsClass += name + value + " ";
+			
+			// set input state
 			var $input = $('input[name=' + name + '][value=' + value +']');
 			$input.attr('checked', true);
+			
+			// set label state
 			$('input[name=' + name + ']').closest('label').removeClass('selected');
 			$input.closest('label').addClass('selected');
 		}
@@ -208,8 +226,56 @@ $(function(){
 	
 	var options = localStorage["options"];
 	
-	if (options){
-		processOptions(JSON.parse(options));
+	options = (typeof(options) == "string") ? JSON.parse(options) : {};
+	
+	// defaults
+	
+	var defaults = {
+	
+		searchLayout: "Top",
+		jobsLayout:   "Cards",
+		excerpts:	  "Off"
+	
+	};
+	
+	for (i in defaults){
+		if (!options[i])
+			options[i] = defaults[i];
 	}
-
+	
+	processOptions(options);
+	
+	var getSuggestions= function(){
+		$.get('/api/jobs/suggestions?keywords='+search.filters.keywords, function(data){
+			console.log(data);
+			var suggestions = data.suggestions,
+				suggestionElements = [];
+			$suggestions.fadeOut(200, function(){
+				$(this).empty();
+							for (var i = 0; i<suggestions.length; i++){
+					var $suggestion = $suggestionTemplate.clone();
+					$suggestion.find('a').text(suggestions[i]);
+					suggestionElements.push($suggestion);
+				}
+				$suggestions.append(suggestionElements);
+				$suggestions.fadeIn(200);
+			});
+		
+		});
+	};
+	
+	getSuggestions();
+	
+	$('body').on('click', '.suggestions a', function(e){
+		e.preventDefault();
+		$('#searchWrap .keywords').val($(this).text()).change();
+	});
+		
+	$('body').on('click', '.toggle', function(e){
+		e.preventDefault();
+		var id = this.id.replace('toggle','');
+		$('#collapse'+id).toggle();
+	});
+	
+	
 });
