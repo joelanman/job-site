@@ -155,20 +155,23 @@ $(function(){
 
 	});
 	
-	$("body").on("click", "#controlPanelBtn", function(e){
-		e.preventDefault();
-		$("#controlPanelWrap").fadeIn();
-	});
+	var hideControlPanel = function(e){
 	
-	$("#controlPanelWrap").on("click touch", function(e){
-
-		if ($(e.target).closest('#controlPanel').length == 0){
-		
-			e.preventDefault();
-			$('#controlPanelWrap').fadeOut();
-			
+		if ($(e.target).closest('#controlPanel').length == 0 && $("#controlPanel").is(":visible")){		
+			console.log("hiding control panel");
+			$('#controlPanel').fadeOut(100);
+			$("body").unbind("click.hideControlPanel");
 		}
-
+	};
+	
+	$("body").on("click", "#controlPanelBtn", function(e){
+		if ($("#controlPanel").is(":hidden")){
+			e.preventDefault();
+			console.log("showing control panel");
+			$("#controlPanel").fadeIn(100, function(){
+				$("body").on("click.hideControlPanel", hideControlPanel);
+			});
+		}
 	});
 	
 	var processOptions = function(options){
@@ -178,7 +181,10 @@ $(function(){
 		for (var name in options){
 			var value = options[name];
 			optionsClass += name + value + " ";
-			$('input[name=' + name + '][value=' + value +']').attr('checked', true);
+			var $input = $('input[name=' + name + '][value=' + value +']');
+			$input.attr('checked', true);
+			$('input[name=' + name + ']').closest('label').removeClass('selected');
+			$input.closest('label').addClass('selected');
 		}
 				
 		$('#options').attr('class', optionsClass);

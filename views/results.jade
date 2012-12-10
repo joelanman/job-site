@@ -17,15 +17,13 @@ html
 	
 		#options.searchLayoutTop.jobsLayoutCards
 	
-			#controlPanelBtn
-				a(href="#")
-					i.icon-cog
-				
 			#controlPanelWrap
+				#controlPanelBtn
+					a(href="#")
+						i.icon-cog
+					
 				#controlPanel
-			
-					h2 Layout
-				
+					
 					section
 						h3 Search layout
 						label
@@ -34,7 +32,7 @@ html
 						label
 							input.option(type="radio", name="searchLayout", value="Left")
 							span Left
-				
+			
 					section
 						h3 Job layout
 						label
@@ -43,7 +41,7 @@ html
 						label
 							input.option(type="radio", name="jobsLayout", value="Rows")
 							span Rows
-	
+					
 			#searchWrap
 				form(action="", method="GET")
 					input.keywords(placeholder="job title, skills or company", type="text", name="keywords", value="#{search.keywords}")
