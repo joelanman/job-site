@@ -171,18 +171,38 @@ $(function(){
 
 	});
 	
+	var processOptions = function(options){
+	
+		var optionsClass = "";
+		
+		for (var name in options){
+			var value = options[name];
+			optionsClass += name + value + " ";
+			$('input[name=' + name + '][value=' + value +']').attr('checked', true);
+		}
+				
+		$('#options').attr('class', optionsClass);
+	}
+	
 	$("#controlPanel").on("click touch", ".option", function(e){
 						
-		var optionsClass = "";
+		var options = {};
 		
 		$('#controlPanel .option:checked').each(function(){
 			var $this = $(this);
-			var cssClass = $this.attr('name') + $this.val();
-			optionsClass += cssClass + " ";
+			options[$this.attr('name')] = $this.val();
 		});
 		
-		$('#options').attr('class', optionsClass);
+		processOptions(options);
+		
+		localStorage["options"] = JSON.stringify(options);
 		
 	});
+	
+	var options = localStorage["options"];
+	
+	if (options){
+		processOptions(JSON.parse(options));
+	}
 
 });
