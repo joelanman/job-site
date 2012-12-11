@@ -1,23 +1,21 @@
 $(function(){
 
 	var search = {
+		url		: "/api/jobs/search",
 		filters : {},
 		getJobs : function(){
 		
 			console.log('getting jobs...');
-			
-			var url = "/api/jobs/search";
-		
-			console.log('url: ' + url);
-				
+									
 			$('#jobs').fadeTo(200, 0.5);
-			$.get(url, this.filters, function(data){
+			$.get(this.url, this.filters, function(data){
 				console.log(data);
 				$jobs.empty();
 				drawJobs(data);
 				$('#jobs').fadeTo(0,1);
 				$('#resultsInner').scrollTop(0);
 				getSuggestions();
+				getSalaryCounts();
 			});
 		}
 	};
@@ -245,7 +243,7 @@ $(function(){
 	
 	processOptions(options);
 	
-	var getSuggestions= function(){
+	var getSuggestions = function(){
 		$.get('/api/jobs/suggestions?keywords='+search.filters.keywords, function(data){
 			console.log(data);
 			var suggestions = data.suggestions,
@@ -264,7 +262,24 @@ $(function(){
 		});
 	};
 	
+	var getSalaryCounts = function(){
+		
+		var query = {'keywords': search.filters.keywords,
+					 'location': search.filters.location};
+				
+		$.get(search.url,  query, function(data){
+			console.log(data);
+			
+			var salaryCounts = data.filterData.salaryCounts;
+		
+			for (var i=0; i<salaryCounts.length; i++){
+				$('#salaryGraph .col' + (i+1)).height(salaryCounts[i].relative *20);
+			}
+		});
+	};
+	
 	getSuggestions();
+	getSalaryCounts();
 	
 	$('body').on('click', '.suggestions a', function(e){
 		e.preventDefault();

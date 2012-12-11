@@ -119,12 +119,50 @@ label{
 }
 
 #filtersWrap .salaryLabel{
-	margin: 10px 0 15px 0;
+	margin: 10px 0 25px 0;
 }
 
 #salarySlider{
 	width: 240px;
 }
+
+#salaryGraph{
+	position: relative;
+	top: 4px;
+}
+
+
+#salaryGraph li{
+	position: absolute;
+	width: 20%;
+	background: #F0F0F0;
+	height: 20px;
+	border: 1px solid #EEE;
+	bottom: 0;
+	-webkit-transition: all 1s;
+	height: 0;
+}
+
+#salaryGraph .col1{
+	left: 0%;
+}
+
+#salaryGraph .col2{
+	left: 20%;
+}
+
+#salaryGraph .col3{
+	left: 40%;
+}
+
+#salaryGraph .col4{
+	left: 60%;
+}
+
+#salaryGraph .col5{
+	left: 80%;
+}
+
 #collapseTypesHours{
 	overflow: hidden;
 }
@@ -264,6 +302,9 @@ label{
 	color: #222;
 }
 
+.job .details{
+}
+
 .jobsLayoutRows .job .details{
 	display: inline-block;
 	vertical-align: top;
@@ -271,7 +312,8 @@ label{
 	width: 29%;
 }
 
-.job .details{
+.jobsLayoutCards .job .details{
+	margin: 0 0 8px 0;
 }
 
 .job li{

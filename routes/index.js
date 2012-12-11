@@ -68,11 +68,19 @@ var scrapeJobs = function(body){
 	
 	$salaryCountElements = $filters.find('.salary .count');
 	
-	var salaryCounts = [];
+	var salaryCounts = [],
+		maxCount = 0;
 	
 	$salaryCountElements.each(function(){
-		salaryCounts.push($(this).text().replace(/[(),]/g,''));
+		var count = Number($(this).text().replace(/[(),]/g,''));
+		salaryCounts.push({'absolute': count});
+		if (count > maxCount)
+			maxCount = count;
 	});
+	
+	for (var i=0; i<salaryCounts.length; i++){
+		salaryCounts[i].relative = salaryCounts[i].absolute/maxCount;
+	}
 	
 	console.log(jobs.length + " jobs found");
 	
