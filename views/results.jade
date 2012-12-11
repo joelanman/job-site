@@ -95,26 +95,26 @@ html
 			#resultsWrap	
 				#resultsInner
 
-					a#jobsPrev(href="#{prevHref}") previous 
+					// a#jobsPrev(href="#{prevHref}") previous 
 		
 					ul#jobs
-						- each job in jobs
-							li.job
-								a.link(href='#{job.url}')
-									h2.jobTitle(data-title="#{job.title}")= job.shortTitle
-									ul.details
-										li= job.salary
-										li= job.location
-									.icons
-										.applicationsWrap
-											i.icon-user
-											span.applications= job.applications
-										.dateWrap
-											i.icon-calendar
-											span.date= job.date
-									.excerpt!= job.excerpt
+					//	- each job in jobs
+					//		li.job
+					//			a.link(href='#{job.url}')
+					//				h2.jobTitle(data-title="#{job.title}")= job.shortTitle
+					//				ul.details
+					//					li= job.salary
+					//					li= job.location
+					//				.icons
+					//					.applicationsWrap
+					//						i.icon-user
+					//						span.applications= job.applications
+					//					.dateWrap
+					//						i.icon-calendar
+					//						span.date= job.date
+					//				.excerpt!= job.excerpt
 			
-					a#jobsNext.job.button(href="#{nextHref}") more jobs
+					// a#jobsNext.job.button(href="#{nextHref}") more jobs
 
 			#jobViewWrap
 				#jobViewInner

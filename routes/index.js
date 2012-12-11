@@ -116,7 +116,8 @@ exports.init = function(app){
 		
 		var search = {'keywords': req.query.keywords || "",
 					  'location': req.query.location || ""};
-		
+		res.render('results', {search: search});
+		/*						   
 		if (search.keywords != "")
 			search.sortby = 'KeywordRelevance';
 		
@@ -141,13 +142,14 @@ exports.init = function(app){
 			
 			console.log("rendering", Date.now() - start);
 			
+			
 			res.render('results', {'jobs': jobsData.jobs,
 								   search: search,
 								   prevHref: encodeURIComponent(jobsData.prevHref),
 								   nextHref: encodeURIComponent(jobsData.nextHref)});
 			
 		})
-
+*/
 	});
 
 	app.get('/api/jobs/search', function(req,res){
@@ -291,7 +293,7 @@ exports.init = function(app){
 											
 			var $body = $(body);
 
-			console.log(body);
+			//console.log(body);
 
 			console.log($body.find('#TITLE_rbo').length);
 

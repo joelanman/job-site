@@ -5,8 +5,7 @@ $(function(){
 		filters : {},
 		getJobs : function(){
 		
-			console.log('getting jobs...');
-									
+			console.log('getting jobs...');	
 			$('#jobs').fadeTo(200, 0.5);
 			$.get(this.url, this.filters, function(data){
 				console.log(data);
@@ -34,7 +33,8 @@ $(function(){
 		
 		var jobs = data.jobs;
 		
-		$('#jobsNext').attr('href', data.nextHref);
+		//$('#jobsNext').attr('href', data.nextHref);
+		
 				
 		jobElements = [];
 		
@@ -59,12 +59,32 @@ $(function(){
 		
 		$jobs.append(jobElements);
 		
+		initAutoLoad(data.nextHref);
+		
+		var fadeInIndex = 0;
+		
+		var fadeInJobs = setInterval(function(){
+			//console.log("fade in " + fadeInIndex);
+			if (!jobElements[fadeInIndex]){
+				clearInterval(fadeInJobs);
+			} else {
+				jobElements[fadeInIndex].addClass('fadeIn');
+				fadeInIndex++;
+			}
+		}, 100);
+		
 	};
 	
 	$('#searchWrap .keywords').change(function(){
 		console.log("change");
-		search.filters.keywords = $(this).val();
-		search.getJobs();
+		
+		var $this = $(this);
+		
+		if ($this.val() != search.filters[$this.attr('name')]){
+		
+			search.filters.keywords = $this.val();
+			search.getJobs();
+		}
 	});
 	
 	$('#searchWrap .location').change(function(){
@@ -87,9 +107,9 @@ $(function(){
 	
 		keyDelay = setTimeout(function(){
 			keyDelay = null;
-			if ($this.val() != search.filters[$this.attr('name')]){
+			//if ($this.val() != search.filters[$this.attr('name')]){
 				$this.change();
-			}
+			//}
 		}, 400);
 	});	
 	
@@ -278,8 +298,52 @@ $(function(){
 		});
 	};
 	
-	getSuggestions();
-	getSalaryCounts();
+	var initAutoLoad = function(url){
+	
+		var autoLoadURL = url;
+	
+		console.log("init Autoload for " + autoLoadURL);
+	
+		$('#resultsInner').unbind('scroll.autoload');
+		
+		if (autoLoadURL){
+		
+			var $lastJob = $('#jobs .job').last();
+		
+			$('#resultsInner').bind('scroll.autoload', function(){
+			
+				if ($lastJob.position().top < $('#resultsInner').innerHeight()){
+				
+					console.log($lastJob.position().top + ", " + $('#resultsInner').innerHeight());
+					
+					$('#resultsInner').unbind('scroll.autoload');
+					var url = "/api/jobs/search?url=" + autoLoadURL;
+		
+					console.log('autoloading ' + url);
+				
+					$.get(url, function(data){
+		
+						drawJobs(data);
+			
+					});
+					
+				}
+			
+			});
+			
+		}
+	
+	}
+	
+	// set up auto load
+	
+	// remove auto load event
+	
+	// is there a next?
+	
+	// if there is, add scroll event
+	
+	// scroll event - remove scroll event, request next
 	
 	$('body').on('click', '.suggestions a', function(e){
 		e.preventDefault();
@@ -291,6 +355,7 @@ $(function(){
 		var id = this.id.replace('toggle','');
 		$('#collapse'+id).toggle();
 	});
-	
+
+	search.getJobs();	
 	
 });
