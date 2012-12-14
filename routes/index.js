@@ -31,24 +31,32 @@ var scrapeJobs = function(body){
 			excerpt = $this.find('.description').html();
 
 		var title = $title.text().trim(),
-			maxLength = 50;
+			maxTitleLength = 50;
 		
 		// GET RID OF ALL CAPS
 		if (title == title.toUpperCase()) {
 			title = title.toTitleCase();
 		}
 
-		// truncate to max length
-		if (title.length < maxLength){
-			var shortTitle = title;
-		} else {
-			for (var i = maxLength; i>0; i--){
-				if (title[i] == ' '){
-					var shortTitle = title.substring(0, i) + ' ...';
-					break;
+		// truncate title to max length
+		
+		var truncate = function(string, maxLength){
+		
+			var truncated = string;
+				
+			if (string.length > maxLength){
+				for (var i=maxLength; i>0; i--){
+					if (string[i] == ' ' || string[i] == ','){
+						var truncated = string.substring(0, i) + ' ...';
+						break;
+					}
 				}
 			}
+			return truncated;
 		}
+		
+		var shortTitle = truncate(title, 50);
+		var excerpt = truncate(excerpt, 240);
 
 		jobs.push({
 			shortTitle: shortTitle,

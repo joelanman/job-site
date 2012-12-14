@@ -5,6 +5,7 @@ body{
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	background: #F4F4F4;
 }
 
 a{
@@ -69,6 +70,10 @@ label{
 	background: #FFF;
 	box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
 	z-index: 100;
+}
+
+.searchLayoutTop #searchWrap form{
+	max-width: 1000px;
 }
 
 .searchLayoutLeft #searchWrap{
@@ -166,9 +171,9 @@ label{
 #salaryGraph li{
 	position: absolute;
 	width: 20%;
-	background: #F0F0F0;
+	background: #EAEAEA;
 	height: 20px;
-	border: 1px solid #EEE;
+	border: 1px solid #F4F4F4;
 	bottom: 0;
 	-webkit-transition: all 1s;
 	height: 0;
@@ -201,18 +206,20 @@ label{
 #collapseTypesHours ul{
 	float: left;
 	width: 50%;
-	font-size: 14px;
+	font-size: 16px;
 }
 
-#collapseTypesHours a{
+#collapseTypesHours ul a{
 	display: block;
 	padding: 5px 15px;
 	border: 1px solid #ddd;
 	margin: 0 5px 5px 0;
+	color: #999;
 }
 
-#collapseTypesHours a.selected{
+#collapseTypesHours ul a.selected{
 	border: 1px solid #333;
+	color: #000;
 }
 
 .suggestionsWrap h4{
@@ -248,7 +255,6 @@ label{
 #resultsWrap{
 	overflow: hidden;
 	height: 100%;
-	padding-left: 280px;
 	width: 100%;
 }
 
@@ -257,11 +263,11 @@ label{
 	overflow-y: scroll;
 	height: 100%;
 	margin-right: -32px;
-	padding: 15px;
+	padding: 10px 20px 10px 290px;
 }
 
 .searchLayoutTop #resultsInner{
-	padding-top: 100px;
+	padding-top: 90px;
 }
 
 .searchLayoutLeft #resultsInner{
@@ -301,6 +307,7 @@ label{
 }
 
 .jobsLayoutRows .job{
+	margin: 0 0 -1px 0;
 }
 
 .jobsLayoutCards .job .link{
@@ -310,10 +317,11 @@ label{
 
 .jobsLayoutRows .job .link{
 	min-height: 100px;
+	max-width: 1100px;
 }
 
 .excerptsOn.jobsLayoutCards .job .link{
-	height: 342px;
+	height: 245px;
 }
 
 .jobsLayoutRows .job .link{

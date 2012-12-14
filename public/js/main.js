@@ -42,13 +42,13 @@ $(function(){
 		$suggestions = $('.suggestions');
 		
 	drawJobs = function(data){
+	
 		console.log('drawing jobs...');
 		
 		var jobs = data.jobs;
 		
 		//$('#jobsNext').attr('href', data.nextHref);
-		
-				
+						
 		jobElements = [];
 		
 		for (var i = 0; i <jobs.length; i++){
@@ -327,6 +327,7 @@ $(function(){
 		console.log("init Autoload for " + autoLoadURL);
 	
 		$('#resultsInner').unbind('scroll.autoload');
+		$(window).unbind('resize.autoload');
 		
 		if (autoLoadURL){
 		
@@ -339,6 +340,8 @@ $(function(){
 					console.log($lastJob.position().top + ", " + $('#resultsInner').innerHeight());
 				
 					$('#resultsInner').unbind('scroll.autoload');
+					$(window).unbind('resize.autoload');
+			
 					var url = "/api/jobs/search?url=" + autoLoadURL;
 	
 					console.log('autoloading ' + url);
@@ -352,6 +355,7 @@ $(function(){
 			};
 		
 			$('#resultsInner').bind('scroll.autoload', checkScroll);
+			$(window).bind('resize.autoload', checkScroll);
 			
 			checkScroll();
 			
