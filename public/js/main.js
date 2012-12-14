@@ -2,7 +2,20 @@ $(function(){
 
 	var search = {
 		url		: "/api/jobs/search",
-		filters : {},
+		filters : {
+			'keywords':'',
+			'location':'',
+			
+			'salaryfrom': null,
+			'salaryto': null,
+			
+			'perm': null,
+			'temp': null,
+			'contract': null,
+			
+			'fulltime': null,
+			'parttime': null
+		},
 		getJobs : function(){
 		
 			console.log('getting jobs...');	
@@ -60,23 +73,11 @@ $(function(){
 		$jobs.append(jobElements);
 		
 		initAutoLoad(data.nextHref);
-		
-		var fadeInIndex = 0;
-		
-		var fadeInJobs = setInterval(function(){
-			//console.log("fade in " + fadeInIndex);
-			if (!jobElements[fadeInIndex]){
-				clearInterval(fadeInJobs);
-			} else {
-				jobElements[fadeInIndex].addClass('fadeIn');
-				fadeInIndex++;
-			}
-		}, 100);
-		
+				
 	};
 	
 	$('#searchWrap .keywords').change(function(){
-		console.log("change");
+		console.log("change keyword");
 		
 		var $this = $(this);
 		
@@ -88,9 +89,15 @@ $(function(){
 	});
 	
 	$('#searchWrap .location').change(function(){
-		console.log("change");
-		search.filters.location = $(this).val();
-		search.getJobs();
+		console.log("change location");
+		
+		var $this = $(this);
+		
+		if ($this.val() != search.filters[$this.attr('name')]){
+		
+			search.filters.location = $this.val();
+			search.getJobs();
+		}
 	});
 	
 	var keyDelay = null;
@@ -107,9 +114,7 @@ $(function(){
 	
 		keyDelay = setTimeout(function(){
 			keyDelay = null;
-			//if ($this.val() != search.filters[$this.attr('name')]){
-				$this.change();
-			//}
+			$this.change();
 		}, 400);
 	});	
 	
@@ -139,23 +144,38 @@ $(function(){
     	search.getJobs();
     });
     
-	$("body").on("click", "#jobsNext", function(e){
-	
-		e.preventDefault();
-	
-		var $this = $(this);
-	
-		var url = "/api/jobs/search?url=" + $this.attr('href');
+	$("body").on("click", "#collapseTypesHours a", function(e){
 		
-		console.log('url: ' + url);
-				
-		$.get(url, function(data){
+		$(this).toggleClass('selected');
 		
-			drawJobs(data);
+		var typeLabels = [];
+		
+		$('#collapseTypesHours a').each(function(){
+			var $this = $(this),
+				name = $this.attr('data-name'),
+				selected = $this.hasClass('selected');
 			
+			if (selected) {
+				search.filters[name] = true;
+				typeLabels.push($this.text());
+			} else {
+				search.filters[name] = null;
+			}
+							
 		});
+		
+		if (typeLabels.length){
+			var typeLabel = typeLabels.join(", ") + " jobs";
+		} else {
+			var typeLabel = "Any job type";
+		}
+		
+		$('#toggleTypesHours .label').text(typeLabel);
+		
+		search.getJobs();
+		
 	});
-
+    
 	$("body").on("click", ".job .link", function(e){
 
 		e.preventDefault();
@@ -284,10 +304,12 @@ $(function(){
 	
 	var getSalaryCounts = function(){
 		
-		var query = {'keywords': search.filters.keywords,
-					 'location': search.filters.location};
-				
-		$.get(search.url,  query, function(data){
+		var query = search.filters;
+		
+		delete query.salaryfrom;
+		delete query.salaryto;
+		
+		$.get(search.url, query, function(data){
 			console.log(data);
 			
 			var salaryCounts = data.filterData.salaryCounts;
@@ -309,51 +331,67 @@ $(function(){
 		if (autoLoadURL){
 		
 			var $lastJob = $('#jobs .job').last();
-		
-			$('#resultsInner').bind('scroll.autoload', function(){
 			
+			var checkScroll = function(){
+		
 				if ($lastJob.position().top < $('#resultsInner').innerHeight()){
-				
+			
 					console.log($lastJob.position().top + ", " + $('#resultsInner').innerHeight());
-					
+				
 					$('#resultsInner').unbind('scroll.autoload');
 					var url = "/api/jobs/search?url=" + autoLoadURL;
-		
+	
 					console.log('autoloading ' + url);
-				
+			
 					$.get(url, function(data){
-		
+	
 						drawJobs(data);
-			
+		
 					});
-					
 				}
+			};
+		
+			$('#resultsInner').bind('scroll.autoload', checkScroll);
 			
-			});
+			checkScroll();
 			
 		}
 	
 	}
-	
-	// set up auto load
-	
-	// remove auto load event
-	
-	// is there a next?
-	
-	// if there is, add scroll event
-	
-	// scroll event - remove scroll event, request next
-	
+		
 	$('body').on('click', '.suggestions a', function(e){
 		e.preventDefault();
 		$('#searchWrap .keywords').val($(this).text()).change();
 	});
 		
 	$('body').on('click', '.toggle', function(e){
+	
 		e.preventDefault();
+		
 		var id = this.id.replace('toggle','');
-		$('#collapse'+id).toggle();
+		
+		var $collapse = $('#collapse'+id);
+		
+		var hideCollapse = function(){
+			console.log("hiding collapse "+ id);
+			$collapse.hide();
+			$("body").unbind('click.'+ id);
+		}
+		
+		if ($collapse.is(':hidden')){
+		
+			$('#collapse'+id).show();
+		
+			$('body').on('click.'+ id, function(e){
+				if ($(e.target).closest('#collapse'+id).length == 0){		
+					hideCollapse();
+				}
+			});
+		
+		} else {
+			hideCollapse();
+		}
+		
 	});
 
 	search.getJobs();	

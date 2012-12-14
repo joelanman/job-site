@@ -112,11 +112,6 @@ label{
 
 #filtersWrap .collapse{
 	display: none;
-	padding: 10px;
-	position: absolute;
-	background: white;
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-	margin-top: 10px;
 }
 
 .searchLayoutTop #filtersWrap{
@@ -129,28 +124,6 @@ label{
 
 #filtersWrap .salaryLabel{
 	margin: 10px 0 25px 0;
-}
-
-.toggleWrap{
-	position: relative;
-}
-
-.toggleWrap i{
-	position: absolute;
-	right: 10px;
-	top: 0;
-}
-
-.toggle a{
-	display: block;
-}
-
-.toggle .label{
-	max-width: 210px;
-	display: block;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
 }
 
 #salarySlider{
@@ -206,13 +179,7 @@ label{
 
 #collapseTypesHours a{
 	display: block;
-	padding: 5px 15px;
-	border: 1px solid #ddd;
-	margin: 0 5px 5px 0;
-}
-
-#collapseTypesHours a.selected{
-	border: 1px solid #333;
+	padding: 5px 0;
 }
 
 .suggestionsWrap h4{
@@ -294,6 +261,14 @@ label{
 	border: 1px solid #DDD;
 	word-break: break-word;
 	background: white;
+	-webkit-transition: all 0.5s;
+	opacity: 0;
+	-webkit-transform: scale(1.1);
+}
+
+.job.fadeIn .link{
+	opacity: 1;
+	-webkit-transform: scale(1);
 }
 
 .jobsLayoutCards .job{
@@ -309,7 +284,6 @@ label{
 }
 
 .jobsLayoutRows .job .link{
-	min-height: 100px;
 }
 
 .excerptsOn.jobsLayoutCards .job .link{
@@ -330,7 +304,11 @@ label{
 }
 
 .jobsLayoutRows h2{
+	display: inline-block;
+	vertical-align: top;
 	padding: 0 5px 0 0;
+	width: 49%;
+	max-width: 420px;
 }
 
 .job a{
@@ -344,13 +322,7 @@ label{
 	display: inline-block;
 	vertical-align: top;
 	padding: 0 5px;
-	width: 20%;
-	
-	position: absolute;
-	left: 57%;
-	top: 42px;
-	font-size: 16px;
-	line-height: 20px;
+	width: 29%;
 }
 
 .jobsLayoutCards .job .details{
@@ -358,6 +330,7 @@ label{
 }
 
 .job li{
+	font-size: 14px;
 	margin: 3px 0;
 	color: #666;
 	overflow: hidden;
@@ -377,15 +350,10 @@ label{
 }
 
 .jobsLayoutRows .job .icons{
-	font-size: 16px;
-	line-height: 20px;
 	display: inline-block;
 	width: 20%;
 	vertical-align: top;
 	padding: 0 5px;
-	position: absolute;
-	left: 79%;
-	top: 46px;
 }
 
 .jobsLayoutCards .job .icons .applicationsWrap,
@@ -403,14 +371,8 @@ label{
 .job .excerpt{
 	font-size: 14px;
 	color: #666;
+	max-width: 940px;
 }
-
-
-.jobsLayoutRows .job .excerpt{
-	width: 55%;
-	margin-top: -20px;
-}
-
 
 .excerptsOff .excerpt{
 	display: none;

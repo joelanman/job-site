@@ -70,23 +70,25 @@ html
 					
 				section.typesHoursWrap
 				
-					h2
-						a.toggle#toggleTypesHours(href="#") Job type
+					h2.toggleWrap
+						a.toggle#toggleTypesHours(href="#")
+							span.label Any job type
+							i.icon-sort-down
 						
 					.collapse#collapseTypesHours
 						ul.types
 							li
-								a(href="#") Permanent
+								a(href="#", data-name="perm") Permanent
 							li
-								a(href="#") Temp
+								a(href="#", data-name="temp") Temp
 							li
-								a(href="#") Contract
+								a(href="#", data-name="contract") Contract
 							
 						ul.hours
 							li
-								a(href="#") Full-time
+								a(href="#", data-name="fulltime") Full-time
 							li
-								a(href="#") Part-time
+								a(href="#", data-name="parttime") Part-time
 					
 				section.suggestionsWrap
 					h4 Suggestions

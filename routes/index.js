@@ -160,11 +160,14 @@ exports.init = function(app){
 		
 		var reqUrl = url.parse("http://www.reed.co.uk");
 		
+		
 		if (!pathname){
 		
 			reqUrl.pathname = "jobs";
 			reqUrl.query = req.query;
 			
+			reqUrl.query.pagesize = '10';
+		
 			if (reqUrl.query.keywords != "")
 				reqUrl.query.sortby = 'KeywordRelevance';
 			
