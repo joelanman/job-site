@@ -239,8 +239,6 @@ label{
 .suggestions li a{
 	display: block;
 	padding: 10px 20px;
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
 	margin: -1px -20px 0 -20px;
 	color: #666;
 }
@@ -281,7 +279,7 @@ label{
 }
 
 #resultsInner{
-	background: #F8F8F8;
+	background: #FAFAFA;
 	overflow-y: scroll;
 	height: 100%;
 	margin-right: -32px;
@@ -301,11 +299,11 @@ label{
 	padding: 7px 15px;
 	background: none;
 	font-size: 14px;
+	border: none;
 }
 
 #resultsInner header .sort a.selected{
-	background: #EDEDED;
-	border: 1px solid #999;
+	background: #EAEAEA;
 }
 
 .searchLayoutTop #resultsInner{
@@ -339,9 +337,8 @@ label{
 	position: relative;
 	padding: 15px 15px;
 	display: block;
-	border: 1px solid #DDD;
+	border-top: 1px solid #DDD;
 	word-break: break-word;
-	background: white;
 }
 
 .jobsLayoutCards .job{
@@ -371,7 +368,6 @@ label{
 }
 
 .job .link:hover{
-	border: 1px solid #999;
 }
 
 .job h2{

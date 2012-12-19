@@ -19,7 +19,9 @@ $(function(){
 			'contract': null,
 			
 			'fulltime': null,
-			'parttime': null
+			'parttime': null,
+			
+			'sortby': 'DisplayDate'
 		},
 		getJobs : function(){
 		
@@ -85,12 +87,14 @@ $(function(){
 			$('#jobs').fadeTo(200, 0.5);
 			$.get(this.url, this.filters, function(data){
 				console.log(data);
-				$jobs.empty();
-				drawJobs(data);
-				$('#jobs').fadeTo(0,1);
-				$('#resultsInner').scrollTop(0);
-				getSuggestions();
-				getSalaryCounts();
+				$('#jobs').fadeOut(function(){
+					$jobs.empty();
+					drawJobs(data);
+					$('#jobs').fadeTo(0,1);
+					$('#resultsInner').scrollTop(0);
+					getSuggestions();
+					getSalaryCounts();
+				});
 			});
 		}
 	};
@@ -389,7 +393,7 @@ $(function(){
 	
 	var getSalaryCounts = function(){
 		
-		var query = search.filters;
+		var query = $.extend(true, {}, search.filters);
 		
 		delete query.salaryfrom;
 		delete query.salaryto;

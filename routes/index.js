@@ -56,7 +56,7 @@ var scrapeJobs = function(body){
 		}
 		
 		var shortTitle = truncate(title, 50);
-		var excerpt = truncate(excerpt, 220);
+		var excerpt = truncate(excerpt, 240);
 		
 		if (excerpt == excerpt.toUpperCase()) {
 			excerpt = excerpt.toTitleCase();
