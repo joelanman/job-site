@@ -166,12 +166,13 @@ exports.init = function(app){
 
 	app.get('/api/jobs/search', function(req,res){
 	
+		console.log("---- search...");
+		
 		var start = Date.now();
 		
 		var pathname = req.query.url;
 		
 		var reqUrl = url.parse("http://www.reed.co.uk");
-		
 		
 		if (!pathname){
 		
@@ -227,7 +228,7 @@ exports.init = function(app){
 		
 		var pathname = req.query.url;
 		
-		console.log(pathname);
+		console.log("---- view: " + pathname);
 		
 		var reqUrl = url.parse("http://www.reed.co.uk");
 		
@@ -258,8 +259,6 @@ exports.init = function(app){
 
 			//console.log(body);
 
-			console.log($body.find('#jobdescription').length);
-
 			job.description = $body.find('#jobdescription').html();
 			
 			console.log("rendering", Date.now() - start);
@@ -279,8 +278,8 @@ exports.init = function(app){
 		var start = Date.now();
 		
 		var keywords = req.query.keywords;
-		
-		console.log(keywords);
+				
+		console.log("---- getting suggestions for: " +keywords);
 		
 		var reqUrl = url.parse("http://www.indeed.co.uk");
 		
@@ -309,8 +308,6 @@ exports.init = function(app){
 			var $body = $(body);
 
 			//console.log(body);
-
-			console.log($body.find('#TITLE_rbo').length);
 
 			var $jobtitleElements = $body.find('#TITLE_rbo a');
 			
