@@ -1,3 +1,8 @@
+
+String.prototype.toTitleCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 $(function(){
 
 	var search = {
@@ -17,6 +22,27 @@ $(function(){
 			'parttime': null
 		},
 		getJobs : function(){
+		
+			var title = "";
+			
+			if (this.filters.keywords){
+				title += this.filters.keywords + " jobs";
+			} else {
+				title += "Jobs";
+			}
+			
+			
+			if (this.filters.location)
+				title += " in " + this.filters.location.toTitleCase();
+					
+			$('#resultsTitle').text(title);
+			
+			if (!this.filters.keywords){
+				$('#resultsInner .sort').hide();
+			} else {
+				$('#resultsInner .sort').show();
+			}
+				
 		
 			console.log('getting jobs...');	
 			$('#jobs').fadeTo(200, 0.5);
@@ -175,6 +201,22 @@ $(function(){
 		search.getJobs();
 		
 	});
+	
+	$("body").on("click", "#resultsInner .sort a", function(e){
+		
+		if ($(this).hasClass('selected') == false){
+		
+			$('#resultsInner .sort a').removeClass('selected');
+		
+			$(this).addClass('selected');
+		
+			search.filters.sortby = $(this).attr('data-value');
+		
+			search.getJobs();
+		
+		}
+		
+	});
     
 	$("body").on("click", ".job .link", function(e){
 
@@ -271,8 +313,8 @@ $(function(){
 	var defaults = {
 	
 		searchLayout: "Top",
-		jobsLayout:   "Cards",
-		excerpts:	  "Off"
+		jobsLayout:   "Rows",
+		excerpts:	  "On"
 	
 	};
 	

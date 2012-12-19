@@ -56,7 +56,11 @@ var scrapeJobs = function(body){
 		}
 		
 		var shortTitle = truncate(title, 50);
-		var excerpt = truncate(excerpt, 240);
+		var excerpt = truncate(excerpt, 220);
+		
+		if (excerpt == excerpt.toUpperCase()) {
+			excerpt = excerpt.toTitleCase();
+		}
 
 		jobs.push({
 			shortTitle: shortTitle,
@@ -176,7 +180,7 @@ exports.init = function(app){
 			
 			reqUrl.query.pagesize = '10';
 		
-			if (reqUrl.query.keywords != "")
+			if (reqUrl.query.keywords != "" && !reqUrl.query.sortby)
 				reqUrl.query.sortby = 'KeywordRelevance';
 			
 		} else {
