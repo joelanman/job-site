@@ -101,8 +101,10 @@ html
 						h1#resultsTitle
 						
 						.sort
-							a(href="#", data-value="KeywordRelevance").button.selected Most relevant
-							a(href="#", data-value="DisplayDate").button Most recent
+							a(href="#", data-value="KeywordRelevance").button.relevancy.selected
+								span Most relevant
+							a(href="#", data-value="DisplayDate").button.date
+								span Most recent
 
 					// a#jobsPrev(href="#{prevHref}") previous 
 		
@@ -124,6 +126,10 @@ html
 					//				.excerpt!= job.excerpt
 			
 					// a#jobsNext.job.button(href="#{nextHref}") more jobs
+					
+			#scrollToTop
+				a(href="#")
+					i.icon-sort-up
 
 			#jobViewWrap
 				#jobViewInner

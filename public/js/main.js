@@ -72,13 +72,15 @@ $(function(){
 					
 			$('#resultsTitle').text(title);
 			
-			if (!this.filters.keywords){
-				$('#resultsInner .sort').hide();
-			} else {
+			if (this.filters.keywords){
 				$('#resultsInner .sort').show();
+			} else {
+				this.filters.sortby = 'DisplayDate';
+				$('#resultsInner .sort a').removeClass('selected');
+				$('#resultsInner .sort a.date').addClass('selected');
+				$('#resultsInner .sort').hide();
 			}
 				
-		
 			console.log('getting jobs...');	
 			$('#jobs').fadeTo(200, 0.5);
 			$.get(this.url, this.filters, function(data){
@@ -300,6 +302,12 @@ $(function(){
 				$("body").on("click.hideControlPanel", hideControlPanel);
 			});
 		}
+	});
+	
+	$("body").on("click", "#scrollToTop a", function(e){
+		
+		$('#resultsInner').animate({scrollTop:0});
+		
 	});
 	
 	var processOptions = function(options){

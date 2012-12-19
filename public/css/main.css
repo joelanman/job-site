@@ -249,6 +249,31 @@ label{
 	color: #000;
 }
 
+#scrollToTop{
+	position: absolute;
+	bottom: 40px;
+	right: 40px;
+	font-size: 36px;
+}
+
+#scrollToTop a{
+	display: block;
+	background: #FFF;
+	width: 50px;
+	height: 50px;
+	border: 1px solid #DDD;
+	box-shadow: 0 0 6px rgba(0,0,0,0.1);
+	color: #666;
+	border-radius: 5px;
+}
+
+#scrollToTop a i{
+	position: absolute;
+	top: 18px;
+	left: 14px;
+}
+
+
 #resultsWrap{
 	overflow: hidden;
 	height: 100%;
@@ -264,21 +289,23 @@ label{
 }
 
 #resultsInner header{
-	margin: 10px 15px;
+	margin: 20px 15px;
 }
 
 #resultsInner h1{
 	margin: 10px 0;
 }
 
-#resultsInner header a{
-	position: relative;
-	margin-right: -1px;
+#resultsInner header .sort a{
+	margin: 0 10px 0 0;
+	padding: 7px 15px;
+	background: none;
+	font-size: 14px;
 }
 
-#resultsInner header a.selected{
-	border: 1px solid #000;
-	z-index: 10;
+#resultsInner header .sort a.selected{
+	background: #EDEDED;
+	border: 1px solid #999;
 }
 
 .searchLayoutTop #resultsInner{
