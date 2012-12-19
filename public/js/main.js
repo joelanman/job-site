@@ -89,8 +89,8 @@ $(function(){
 				console.log(data);
 				$('#jobs').fadeOut(function(){
 					$jobs.empty();
-					drawJobs(data);
 					$('#jobs').fadeTo(0,1);
+					drawJobs(data);
 					$('#resultsInner').scrollTop(0);
 					getSuggestions();
 					getSalaryCounts();
@@ -140,7 +140,6 @@ $(function(){
 		$jobs.append(jobElements);
 		
 		initAutoLoad(data.nextHref);
-				
 	};
 	
 	$('#searchWrap .keywords').change(function(){
