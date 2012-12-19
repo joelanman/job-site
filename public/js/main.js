@@ -25,10 +25,45 @@ $(function(){
 		
 			var title = "";
 			
+			var types = {
+				'perm': 	this.filters.perm,
+				'temp': 	this.filters.temp,
+				'contract': this.filters.contract,
+				
+				'fulltime': this.filters.fulltime,
+				'parttime': this.filters.parttime
+			}
+			
+			var titleCheck = function(title, prop, name){
+			
+				for (var i in types){
+				
+					if (types[i] && i != prop){
+						return title;
+					}
+				
+				}
+				
+				if (types[prop]){
+					return name;
+				} else {
+					return title;
+				}
+				
+			}
+			
+			title = titleCheck(title, 'temp', 'Temp ');
+			title = titleCheck(title, 'contract', 'Contract ');
+			title = titleCheck(title, 'parttime', 'Part-time ');
+					
 			if (this.filters.keywords){
 				title += this.filters.keywords + " jobs";
 			} else {
-				title += "Jobs";
+				if (title){
+					title += "jobs";
+				} else {
+					title += "Jobs";
+				}
 			}
 			
 			
