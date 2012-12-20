@@ -162,7 +162,7 @@ label{
 
 #salaryGraph{
 	position: relative;
-	top: 4px;
+	top: 1px;
 }
 
 
@@ -331,14 +331,14 @@ label{
 .job{
 	position: relative;
 	margin: 8px;
-}
-
-.job .link{
 	position: relative;
 	padding: 15px 15px;
 	display: block;
 	border-top: 1px solid #DDD;
-	word-break: break-word;
+}
+
+.job .link{
+	color: #00AA33;
 }
 
 .jobsLayoutCards .job{
@@ -349,21 +349,21 @@ label{
 	margin: 4px 0 4px 0;
 }
 
-.jobsLayoutCards .job .link{
+.jobsLayoutCards .job{
 	width: 325px;
 	height: 155px;
 }
 
-.jobsLayoutRows .job .link{
+.jobsLayoutRows .job{
 	min-height: 100px;
 	max-width: 1100px;
 }
 
-.excerptsOn.jobsLayoutCards .job .link{
+.excerptsOn.jobsLayoutCards .job{
 	height: 245px;
 }
 
-.jobsLayoutRows .job .link{
+.jobsLayoutRows .job{
 	width: auto;
 }
 
@@ -371,12 +371,11 @@ label{
 }
 
 .job h2{
-	height: 45px;
-	margin: 0 0 5px 0;
+	padding: 5px 0 5px 0;
+	display: inline-block;
 }
 
 .jobsLayoutRows h2{
-	padding: 0 5px 0 0;
 }
 
 .job a{
@@ -454,7 +453,6 @@ label{
 
 .jobsLayoutRows .job .excerpt{
 	width: 55%;
-	margin-top: -20px;
 }
 
 

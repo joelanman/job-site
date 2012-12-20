@@ -313,6 +313,33 @@ $(function(){
 		
 	});
 	
+	var $lastJob = null,
+		autoLoadURL = null;
+	
+	var checkScroll = function(){
+	
+		if ($lastJob){
+		
+			if ($lastJob.position().top < $('#resultsInner').innerHeight()){
+	
+				console.log($lastJob.position().top + ", " + $('#resultsInner').innerHeight());
+		
+				$('#resultsInner').unbind('scroll.autoload');
+				$(window).unbind('resize.autoload');
+	
+				var url = "/api/jobs/search?url=" + autoLoadURL;
+
+				console.log('autoloading ' + url);
+	
+				$.get(url, function(data){
+
+					drawJobs(data);
+
+				});
+			}
+		}
+	};
+	
 	var processOptions = function(options){
 	
 		var optionsClass = "";
@@ -333,6 +360,7 @@ $(function(){
 		}
 				
 		$('#options').attr('class', optionsClass);
+		checkScroll();
 	}
 	
 	$("#controlPanel").on("click touch", ".option", function(e){
@@ -407,10 +435,10 @@ $(function(){
 			}
 		});
 	};
-	
+		
 	var initAutoLoad = function(url){
 	
-		var autoLoadURL = url;
+		autoLoadURL = url;
 	
 		console.log("init Autoload for " + autoLoadURL);
 	
@@ -419,29 +447,8 @@ $(function(){
 		
 		if (autoLoadURL){
 		
-			var $lastJob = $('#jobs .job').last();
-			
-			var checkScroll = function(){
-		
-				if ($lastJob.position().top < $('#resultsInner').innerHeight()){
-			
-					console.log($lastJob.position().top + ", " + $('#resultsInner').innerHeight());
-				
-					$('#resultsInner').unbind('scroll.autoload');
-					$(window).unbind('resize.autoload');
-			
-					var url = "/api/jobs/search?url=" + autoLoadURL;
-	
-					console.log('autoloading ' + url);
-			
-					$.get(url, function(data){
-	
-						drawJobs(data);
-		
-					});
-				}
-			};
-		
+			$lastJob = $('#jobs .job').last();
+					
 			$('#resultsInner').bind('scroll.autoload', checkScroll);
 			$(window).bind('resize.autoload', checkScroll);
 			
