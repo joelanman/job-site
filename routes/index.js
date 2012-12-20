@@ -14,23 +14,23 @@ String.prototype.toTitleCase = function () {
 
 var scrapeJobs = function(body){
 
-	var begin = body.indexOf('<body'),
-		end   = body.indexOf('</body') + 6;
-	body = body.substring(begin, end);
-									
-	var $body = $(body);
-	
-	var $jobs = $body.find(".job");
+	//console.log(body);
+
+	var data = JSON.parse(body);
 		
-	var jobs = [];
+	var results = data.results,
+		jobs = [];
 	
-	$jobs.each(function(){
+	for ( var i=0; i< results.length; i++){
+	
+		var job = results[i];
+		var	title = job.jobTitle,
+			excerpt = job.jobDescription;
+			
+		//console.log(JSON.stringify(job));
+		//console.log(title);
 
-		var $this = $(this),
-			$title = $this.find("h3 a"),
-			excerpt = $this.find('.description').html();
-
-		var title = $title.text().trim(),
+		var title = title.trim(),
 			maxTitleLength = 50;
 		
 		// GET RID OF ALL CAPS
@@ -65,18 +65,18 @@ var scrapeJobs = function(body){
 		jobs.push({
 			shortTitle: shortTitle,
 			title: title,
-			url: $title.attr('href'),
-			salary: $this.find('.salary').text().trim().replace(' per annum',''),
-			location: $this.find('.location').text().trim().replace('London, South East England','London'),
-			applications: $this.find('.appCount').text().trim().replace(/ applications?/,''),
-			date: $this.find('.date').text().trim().replace('Date: ', ''),
+			url: job.jobId,
+			salary: (job.minimumSalary && job.minimumSalary) ? "£" + job.minimumSalary + " - £" + job.maximumSalary : "Salary negotiable",
+			location: job.locationName.replace('London, South East England','London'),
+			applications: Math.round(Math.random()*100),
+			date: job.expirationDate,
 			excerpt: excerpt
 		});
-	});
+	}
 	
 	// filters
 	
-	$filters = $body.find('#mainFacets');
+	/*$filters = $body.find('#mainFacets');
 	
 	$salaryCountElements = $filters.find('.salary .count');
 	
@@ -108,11 +108,12 @@ var scrapeJobs = function(body){
 	
 	console.log("prevHref: " + nextHref);
 	console.log("nextHref: " + nextHref);
+	*/
 	
 	var jobsData = {'jobs': 	jobs,
-					'nextHref': nextHref,
-					'prevHref': prevHref,
-					'filterData' : {'salaryCounts': salaryCounts},
+					'nextHref': '',
+					'prevHref': '',
+					'filterData' : {'salaryCounts': []},
 					'body':		body};
 	
 	return (jobsData);
@@ -172,14 +173,23 @@ exports.init = function(app){
 		
 		var pathname = req.query.url;
 		
-		var reqUrl = url.parse("http://www.reed.co.uk");
+		var reqUrl = url.parse("http://29D95958-0849-4185-A02C-6C9E22DEFB23:@www.reed.co.uk/");
 		
 		if (!pathname){
 		
-			reqUrl.pathname = "jobs";
+			reqUrl.pathname = "api/1.0/search";
 			reqUrl.query = req.query;
 			
-			reqUrl.query.pagesize = '10';
+			if (reqUrl.query.location)
+				reqUrl.query.locationName = reqUrl.query.location;
+				
+			if (reqUrl.query.salaryFrom)
+				reqUrl.query.minimumSalary = reqUrl.query.salaryFrom;
+				
+			if (reqUrl.query.salaryTo)
+				reqUrl.query.maximumSalary = reqUrl.query.salaryTo;
+			
+			reqUrl.query.resultsToTake = '20';
 		
 			if (reqUrl.query.keywords != "" && !reqUrl.query.sortby)
 				reqUrl.query.sortby = 'KeywordRelevance';
@@ -204,7 +214,7 @@ exports.init = function(app){
 
 			// get info
 			console.log("Scraping", Date.now() - start);
-			
+						
 			var jobsData = scrapeJobs(body);
 			
 			console.log("rendering", Date.now() - start);

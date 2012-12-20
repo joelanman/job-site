@@ -27,6 +27,8 @@ $(function(){
 		
 			var title = "";
 			
+			$('#jobs').fadeTo(200, 0.5);
+			
 			var types = {
 				'perm': 	this.filters.perm,
 				'temp': 	this.filters.temp,
@@ -84,17 +86,14 @@ $(function(){
 			}
 				
 			console.log('getting jobs...');	
-			$('#jobs').fadeTo(200, 0.5);
 			$.get(this.url, this.filters, function(data){
 				console.log(data);
-				$('#jobs').fadeOut(function(){
-					$jobs.empty();
-					$('#jobs').fadeTo(0,1);
-					drawJobs(data);
-					$('#resultsInner').scrollTop(0);
-					getSuggestions();
-					getSalaryCounts();
-				});
+				$jobs.empty();
+				$('#jobs').fadeTo(0,1);
+				drawJobs(data);
+				$('#resultsInner').scrollTop(0);
+				getSuggestions();
+				//getSalaryCounts();
 			});
 		}
 	};
