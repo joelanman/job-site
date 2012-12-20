@@ -8,10 +8,12 @@ html
 		link(rel='stylesheet', href='/css/main.css')
 		link(rel='stylesheet', href='/css/jquery-ui/jquery-ui-1.9.2.custom.css')
 		
+		//script(src="http://debug.phonegap.com/target/target-script-min.js#b8e275c4-a502-4a3d-90c2-fc41789ab6f2")
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")
 		script(src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js")
 		
 		script(src="/js/jquery.ui.touch-punch.min.js")
+		script(src="/js/spin.min.js")
 		script(src="/js/json2.js")
 		
 		script(src="/js/main.js")
@@ -110,25 +112,28 @@ html
 								span Most recent
 
 					// a#jobsPrev(href="#{prevHref}") previous 
-		
-					ul#jobs
-					//	- each job in jobs
-					//		li.job
-					//			a.link(href='#{job.url}')
-					//				h2.jobTitle(data-title="#{job.title}")= job.shortTitle
-					//				ul.details
-					//					li= job.salary
-					//					li= job.location
-					//				.icons
-					//					.applicationsWrap
-					//						i.icon-user
-					//						span.applications= job.applications
-					//					.dateWrap
-					//						i.icon-calendar
-					//						span.date= job.date
-					//				.excerpt!= job.excerpt
+					
+					#jobsWrap
+						ul#jobs
+						//	- each job in jobs
+						//		li.job
+						//			a.link(href='#{job.url}')
+						//				h2.jobTitle(data-title="#{job.title}")= job.shortTitle
+						//				ul.details
+						//					li= job.salary
+						//					li= job.location
+						//				.icons
+						//					.applicationsWrap
+						//						i.icon-user
+						//						span.applications= job.applications
+						//					.dateWrap
+						//						i.icon-calendar
+						//						span.date= job.date
+						//				.excerpt!= job.excerpt
 			
-					// a#jobsNext.job.button(href="#{nextHref}") more jobs
+						// a#jobsNext.job.button(href="#{nextHref}") more jobs
+						
+						.loading
 					
 			#scrollToTop
 				a(href="#")

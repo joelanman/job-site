@@ -90,8 +90,12 @@ label{
 	font-size: 18px;
 }
 
-.searchLayoutTop #searchWrap input[type=text]{
-	width: 46%;
+.searchLayoutTop #searchWrap .keywords{
+	width: 54%;
+}
+
+.searchLayoutTop #searchWrap .location{
+	width: 38%;
 }
 
 .searchLayoutLeft #searchWrap input[type=text]{
@@ -102,6 +106,8 @@ label{
 #filtersWrap{
 	position: fixed;
 	left: 0;
+	z-index: 10;
+	-webkit-transform: translate3d(0, 0, 0);
 }
 
 #filtersWrap section{
@@ -281,9 +287,14 @@ label{
 #resultsInner{
 	background: #FAFAFA;
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 	height: 100%;
 	margin-right: -32px;
-	padding: 10px 20px 10px 290px;
+	padding: 10px 20px 200px 290px;
+}
+
+#resultsInner *{
+	-webkit-transform: translate3d(0, 0, 0);
 }
 
 #resultsInner header{
@@ -325,8 +336,9 @@ label{
 }
 
 #jobs{
-	padding-bottom: 200px;
+	overflow: hidden;
 }
+
 
 .job{
 	position: relative;
@@ -351,11 +363,14 @@ label{
 
 .jobsLayoutCards .job{
 	width: 325px;
-	height: 155px;
+	height: 165px;
 }
 
 .jobsLayoutRows .job{
 	min-height: 100px;
+}
+
+.jobsLayoutRows #jobsWrap{
 	max-width: 1100px;
 }
 
@@ -472,6 +487,16 @@ label{
 	vertical-align: top;
 	word-break: break-word;
 	text-align: center;
+}
+
+#jobsWrap .loading{
+	//display: none;
+	height: 120px;
+}
+
+#jobsWrap .loading .spinner{
+	left: 45% !important;
+	top: 50% !important;
 }
 
 #jobViewInner{
