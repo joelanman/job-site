@@ -330,12 +330,9 @@ $(function(){
 				var url = "/api/jobs/search?url=" + autoLoadURL;
 
 				console.log('autoloading ' + url);
-				
-				$('#jobsWrap .loading').show();
-	
+					
 				$.get(url, function(data){
 
-					$('#jobsWrap .loading').hide();
 					drawJobs(data);
 
 				});
@@ -450,6 +447,7 @@ $(function(){
 		
 		if (autoLoadURL){
 		
+			$('#jobsWrap .loading').show();
 			$lastJob = $('#jobs .job').last();
 					
 			$('#resultsInner').bind('scroll.autoload', checkScroll);
@@ -457,9 +455,28 @@ $(function(){
 			
 			checkScroll();
 			
+		} else {
+		
+			$('#jobsWrap .loading').hide();
+			
 		}
 	
 	}
+	
+	var $resultsInner = $('#resultsInner');
+	
+	$resultsInner.bind('scroll.showScrollToTop', function(){
+		
+		if ($resultsInner.scrollTop() > $resultsInner.innerHeight()){
+		
+			$('#scrollToTop').fadeIn();
+			
+		} else {
+		
+			$('#scrollToTop').fadeOut();
+			
+		}
+	});
 		
 	$('body').on('click', '.suggestions a', function(e){
 		e.preventDefault();

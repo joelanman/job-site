@@ -258,6 +258,7 @@ label{
 	bottom: 40px;
 	right: 40px;
 	font-size: 36px;
+	display: none;
 }
 
 #scrollToTop a{
