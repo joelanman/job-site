@@ -181,7 +181,7 @@ exports.init = function(app){
 			reqUrl.query = {};
 			
 			if (req.query.keywords)
-				reqUrl.query.keywords = req.query.keywords;
+				reqUrl.query.keywords = req.query.keywords.toUpperCase();
 				
 			if (req.query.location)
 				reqUrl.query.locationName = req.query.location;
@@ -191,6 +191,21 @@ exports.init = function(app){
 				
 			if (req.query.salaryto)
 				reqUrl.query.maximumSalary = req.query.salaryto;
+				
+			if (req.query.perm)
+				reqUrl.query.permanent = req.query.perm;
+				
+			if (req.query.temp)
+				reqUrl.query.temp = req.query.temp;
+				
+			if (req.query.contract)
+				reqUrl.query.contract = req.query.contract;
+				
+			if (req.query.parttime)
+				reqUrl.query.parttime = req.query.parttime;
+				
+			if (req.query.fulltime)
+				reqUrl.query.parttime = req.query.fulltime;
 			
 			reqUrl.query.resultsToTake = '20';
 			reqUrl.query.format = 'json';
