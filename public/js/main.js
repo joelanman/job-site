@@ -3,6 +3,10 @@ String.prototype.toTitleCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
+function addCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 $(function(){
 
 	var search = {
@@ -31,7 +35,7 @@ $(function(){
 				
 			var title = "";
 			
-			this.resultsToSkip = 0;
+			this.filters.resultsToSkip = 0;
 		
 			$('#jobs').fadeTo(200, 0.5);
 			
@@ -217,7 +221,7 @@ $(function(){
         step: 1000,
         values: [ 0, 100000 ],
         slide: function( event, ui ) {
-            $("#filtersWrap .salaryLabel").text("£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+            $("#filtersWrap .salaryLabel").text("£" + addCommas(ui.values[0]) + " - £" + addCommas(ui.values[1]));
         },
         create: function(event, ui){
 

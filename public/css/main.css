@@ -124,6 +124,7 @@ label{
 
 .searchLayoutTop #searchWrap .keywords{
 	width: 54%;
+	margin-right: 5px;
 }
 
 .searchLayoutTop #searchWrap .location{
@@ -144,7 +145,7 @@ label{
 
 #filtersWrap section{
 	padding: 20px;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #DFDFDF;
 }
 
 #filtersWrap section a{
@@ -381,7 +382,7 @@ label{
 	position: relative;
 	padding: 15px 15px;
 	display: block;
-	border-top: 1px solid #DDD;
+	border-top: 1px solid #DFDFDF;
 }
 
 .job .link{

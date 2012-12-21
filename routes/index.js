@@ -210,10 +210,10 @@ exports.init = function(app){
 				reqUrl.query.parttime = req.query.parttime;
 				
 			if (req.query.fulltime)
-				reqUrl.query.parttime = req.query.fulltime;
+				reqUrl.query.fulltime = req.query.fulltime;
 				
 			if (req.query.resultsToSkip)
-				reqUrl.query.parttime = req.query.resultsToSkip;
+				reqUrl.query.resultsToSkip = req.query.resultsToSkip;
 			
 			reqUrl.query.resultsToTake = '20';
 			reqUrl.query.format = 'json';
