@@ -178,21 +178,25 @@ exports.init = function(app){
 		if (!pathname){
 		
 			reqUrl.pathname = "api/1.0/search";
-			reqUrl.query = req.query;
+			reqUrl.query = {};
 			
-			if (reqUrl.query.location)
-				reqUrl.query.locationName = reqUrl.query.location;
+			if (req.query.keywords)
+				reqUrl.query.keywords = req.query.keywords;
 				
-			if (reqUrl.query.salaryFrom)
-				reqUrl.query.minimumSalary = reqUrl.query.salaryFrom;
+			if (req.query.location)
+				reqUrl.query.locationName = req.query.location;
 				
-			if (reqUrl.query.salaryTo)
-				reqUrl.query.maximumSalary = reqUrl.query.salaryTo;
+			if (req.query.salaryFrom)
+				reqUrl.query.minimumSalary = req.query.salaryFrom;
+				
+			if (req.query.salaryTo)
+				reqUrl.query.maximumSalary = req.query.salaryTo;
 			
 			reqUrl.query.resultsToTake = '20';
+			reqUrl.query.format = 'json';
 		
-			if (reqUrl.query.keywords != "" && !reqUrl.query.sortby)
-				reqUrl.query.sortby = 'KeywordRelevance';
+			//if (reqUrl.query.keywords != "" && !reqUrl.query.sortby)
+			//	reqUrl.query.sortby = 'KeywordRelevance';
 			
 		} else {
 				
@@ -202,8 +206,10 @@ exports.init = function(app){
 		
 		var uri = url.format(reqUrl);
 			
-		console.log(uri);
+		console.log("making request ", Date.now() - start);
 		
+		console.log(uri);
+			
 		request({ uri: uri, timeout:5000 }, function (error, response, body) {
 
 			if (error || response.statusCode !== 200) {
