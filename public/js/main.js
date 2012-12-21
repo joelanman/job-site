@@ -218,6 +218,14 @@ $(function(){
         values: [ 0, 100000 ],
         slide: function( event, ui ) {
             $("#filtersWrap .salaryLabel").text("£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+        },
+        create: function(event, ui){
+
+			var $handles = $(this).find('.ui-slider-handle');
+			
+			$handles.first().addClass('ui-slider-handle-left');
+			$handles.last().addClass('ui-slider-handle-right');
+
         }
     });
     

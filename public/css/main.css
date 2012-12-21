@@ -1,3 +1,35 @@
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	background: #FFF;
+}
+
+.ui-state-default:hover, .ui-widget-content .ui-state-default:hover, .ui-widget-header:hover .ui-state-default:hover{
+	background: #FFF;
+}
+
+.ui-slider{
+	border: none;
+}
+
+.ui-slider.ui-widget-content{
+	background: #DDD;
+	border-radius: 0;
+}
+
+.ui-slider .ui-slider-handle{
+	border-radius: 0;
+	height: 1.6em;
+	width: 1.1em;
+	top: -0.65em;
+}
+
+.ui-widget-content .ui-slider-handle-left{
+	border-right: 2px solid #F6A828;
+}
+
+.ui-widget-content .ui-slider-handle-right{
+	border-left: 2px solid #F6A828;
+}
+
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
 body{
@@ -121,11 +153,7 @@ label{
 
 #filtersWrap .collapse{
 	display: none;
-	padding: 10px;
-	position: absolute;
-	background: white;
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-	margin-top: 10px;
+	padding-top: 20px;
 }
 
 .searchLayoutTop #filtersWrap{
@@ -164,6 +192,7 @@ label{
 
 #salarySlider{
 	width: 240px;
+	height: 6px;
 }
 
 #salaryGraph{
@@ -206,9 +235,14 @@ label{
 	overflow: hidden;
 }
 
+
+#collapseTypesHours .types{
+	margin-right: 6%;
+}
+
 #collapseTypesHours ul{
 	float: left;
-	width: 50%;
+	width: 47%;
 	font-size: 16px;
 }
 
@@ -363,9 +397,33 @@ label{
 }
 
 .jobsLayoutCards .job{
-	width: 325px;
 	height: 165px;
 }
+
+@media only screen  
+and (max-width : 899px) {
+	.jobsLayoutCards .job{
+		width: 96%;
+		height: 200px !important;
+	}
+}
+
+
+@media only screen  
+and (min-width : 900px)
+and (max-width : 1199px) {
+	.jobsLayoutCards .job{
+		width: 47%;
+	}
+}
+
+@media only screen  
+and (min-width : 1200px) {
+	.jobsLayoutCards .job{
+		width: 305px;
+	}
+}
+
 
 .jobsLayoutRows .job{
 	min-height: 100px;

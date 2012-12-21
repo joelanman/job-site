@@ -12,6 +12,10 @@ String.prototype.toTitleCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
+function addCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 var scrapeJobs = function(body){
 
 	//console.log(body);
@@ -66,7 +70,7 @@ var scrapeJobs = function(body){
 			shortTitle: shortTitle,
 			title: title,
 			url: job.jobId,
-			salary: (job.minimumSalary && job.minimumSalary) ? "£" + job.minimumSalary + " - £" + job.maximumSalary : "Salary negotiable",
+			salary: (job.minimumSalary && job.minimumSalary) ? "£" + addCommas(job.minimumSalary) + " - £" + addCommas(job.maximumSalary) : "Salary negotiable",
 			location: job.locationName.replace('London, South East England','London'),
 			applications: Math.round(Math.random()*100),
 			date: job.expirationDate,
