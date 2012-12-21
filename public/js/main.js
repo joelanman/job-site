@@ -21,45 +21,51 @@ $(function(){
 			'fulltime': null,
 			'parttime': null,
 			
-			'sortby': 'DisplayDate'
+			'sortby': 'DisplayDate',
+			
+			'resultsToTake': 20,
+			'resultsToSkip': 0,
+			'totalResults': 0
 		},
-		getJobs : function(){
-		
+		newSearch : function(){
+				
 			var title = "";
 			
+			this.resultsToSkip = 0;
+		
 			$('#jobs').fadeTo(200, 0.5);
 			
 			var types = {
 				'perm': 	this.filters.perm,
 				'temp': 	this.filters.temp,
 				'contract': this.filters.contract,
-				
+			
 				'fulltime': this.filters.fulltime,
 				'parttime': this.filters.parttime
 			}
-			
+		
 			var titleCheck = function(title, prop, name){
-			
+		
 				for (var i in types){
-				
+			
 					if (types[i] && i != prop){
 						return title;
 					}
-				
+			
 				}
-				
+			
 				if (types[prop]){
 					return name;
 				} else {
 					return title;
 				}
-				
-			}
 			
+			}
+		
 			title = titleCheck(title, 'temp', 'Temp ');
 			title = titleCheck(title, 'contract', 'Contract ');
 			title = titleCheck(title, 'parttime', 'Part-time ');
-					
+				
 			if (this.filters.keywords){
 				title += this.filters.keywords + " jobs";
 			} else {
@@ -69,13 +75,12 @@ $(function(){
 					title += "Jobs";
 				}
 			}
-			
-			
+		
 			if (this.filters.location)
 				title += " in " + this.filters.location.toTitleCase();
-					
+				
 			$('#resultsTitle').text(title);
-			
+		
 			if (this.filters.keywords){
 				$('#resultsInner .sort').show();
 			} else {
@@ -84,16 +89,29 @@ $(function(){
 				$('#resultsInner .sort a.date').addClass('selected');
 				$('#resultsInner .sort').hide();
 			}
-				
+							
 			console.log('getting jobs...');	
+			
 			$.get(this.url, this.filters, function(data){
 				console.log(data);
 				$jobs.empty();
 				$('#jobs').fadeTo(0,1);
-				drawJobs(data);
 				$('#resultsInner').scrollTop(0);
 				getSuggestions();
+				search.totalResults = data.totalResults;
+				drawJobs(data);
+				console.log('total: ' + search.totalResults);
 				//getSalaryCounts();
+			});
+		},
+		
+		getJobs : function(){
+						
+			console.log('getting jobs...');	
+			
+			$.get(this.url, this.filters, function(data){
+				console.log(data);
+				drawJobs(data);
 			});
 		}
 	};
@@ -138,7 +156,8 @@ $(function(){
 		
 		$jobs.append(jobElements);
 		
-		initAutoLoad(data.nextHref);
+		initAutoLoad();
+			
 	};
 	
 	$('#searchWrap .keywords').change(function(){
@@ -149,7 +168,7 @@ $(function(){
 		if ($this.val() != search.filters[$this.attr('name')]){
 		
 			search.filters.keywords = $this.val();
-			search.getJobs();
+			search.newSearch();
 		}
 	});
 	
@@ -161,7 +180,7 @@ $(function(){
 		if ($this.val() != search.filters[$this.attr('name')]){
 		
 			search.filters.location = $this.val();
-			search.getJobs();
+			search.newSearch();
 		}
 	});
 	
@@ -206,7 +225,7 @@ $(function(){
     	console.log(ui.values);
     	search.filters.salaryfrom = ui.values[0];
     	search.filters.salaryto = ui.values[1];
-    	search.getJobs();
+    	search.newSearch();
     });
     
 	$("body").on("click", "#collapseTypesHours a", function(e){
@@ -237,7 +256,7 @@ $(function(){
 		
 		$('#toggleTypesHours .label').text(typeLabel);
 		
-		search.getJobs();
+		search.newSearch();
 		
 	});
 	
@@ -251,7 +270,7 @@ $(function(){
 		
 			search.filters.sortby = $(this).attr('data-value');
 		
-			search.getJobs();
+			search.newSearch();
 		
 		}
 		
@@ -329,12 +348,10 @@ $(function(){
 				var url = "/api/jobs/search?url=" + autoLoadURL;
 
 				console.log('autoloading ' + url);
+				
+				search.filters.resultsToSkip += search.filters.resultsToTake;
 					
-				$.get(url, function(data){
-
-					drawJobs(data);
-
-				});
+				search.getJobs();
 			}
 		}
 	};
@@ -435,16 +452,18 @@ $(function(){
 		});
 	};
 		
-	var initAutoLoad = function(url){
+	var initAutoLoad = function(){
 	
-		autoLoadURL = url;
-	
-		console.log("init Autoload for " + autoLoadURL);
+		console.log('initAutoLoad');
+		console.log(search.filters.resultsToSkip + search.filters.resultsToTake);
+		console.log(search.totalResults);
+		
+		var moreToLoad = (search.filters.resultsToSkip + search.filters.resultsToTake) < search.totalResults;
 	
 		$('#resultsInner').unbind('scroll.autoload');
 		$(window).unbind('resize.autoload');
 		
-		if (autoLoadURL){
+		if (moreToLoad){
 		
 			$('#jobsWrap .loading').show();
 			$lastJob = $('#jobs .job').last();
@@ -512,7 +531,7 @@ $(function(){
 		
 	});
 
-	search.getJobs();
+	search.newSearch();
 	
 	var opts = {
 	  lines: 8, // The number of lines to draw

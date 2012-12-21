@@ -111,8 +111,9 @@ var scrapeJobs = function(body){
 	*/
 	
 	var jobsData = {'jobs': 	jobs,
-					'nextHref': '',
-					'prevHref': '',
+					'totalResults': data.totalResults,
+					'nextHref': 'moop',
+					'prevHref': 'moop',
 					'filterData' : {'salaryCounts': []},
 					'body':		body};
 	
@@ -206,6 +207,9 @@ exports.init = function(app){
 				
 			if (req.query.fulltime)
 				reqUrl.query.parttime = req.query.fulltime;
+				
+			if (req.query.resultsToSkip)
+				reqUrl.query.parttime = req.query.resultsToSkip;
 			
 			reqUrl.query.resultsToTake = '20';
 			reqUrl.query.format = 'json';
@@ -246,6 +250,7 @@ exports.init = function(app){
 									  'prevHref':   encodeURIComponent(jobsData.prevHref),
 									  'nextHref':   encodeURIComponent(jobsData.nextHref),
 									  'filterData': jobsData.filterData,
+									  'totalResults': jobsData.totalResults
 									  }));
 									  //,'body': 	  jobsData.body}));
 			res.end();
@@ -352,7 +357,7 @@ exports.init = function(app){
 			
     		res.writeHead(200, { 'Content-Type': 'application/json' });   
 			
-			res.write(JSON.stringify({'suggestions': suggestions.slice(0,6)
+			res.write(JSON.stringify({'suggestions': suggestions.slice(0,8)
 									  }));
 									  //,'body': 	  body}));
 			res.end();
