@@ -180,7 +180,7 @@ $(function(){
 		keyDelay = setTimeout(function(){
 			keyDelay = null;
 			$this.change();
-		}, 400);
+		}, 350);
 	});	
 	
 	$('#searchWrap input').keydown(function(e){

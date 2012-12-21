@@ -186,11 +186,11 @@ exports.init = function(app){
 			if (req.query.location)
 				reqUrl.query.locationName = req.query.location;
 				
-			if (req.query.salaryFrom)
-				reqUrl.query.minimumSalary = req.query.salaryFrom;
+			if (req.query.salaryfrom)
+				reqUrl.query.minimumSalary = req.query.salaryfrom;
 				
-			if (req.query.salaryTo)
-				reqUrl.query.maximumSalary = req.query.salaryTo;
+			if (req.query.salaryto)
+				reqUrl.query.maximumSalary = req.query.salaryto;
 			
 			reqUrl.query.resultsToTake = '20';
 			reqUrl.query.format = 'json';
