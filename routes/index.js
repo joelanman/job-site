@@ -65,6 +65,7 @@ var scrapeJobs = function(body){
 		if (excerpt == excerpt.toUpperCase()) {
 			excerpt = excerpt.toTitleCase();
 		}
+		console.log("excerpt: "+excerpt);
 
 		jobs.push({
 			shortTitle: shortTitle,
